@@ -1,0 +1,2322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AssemblyName>NinjaTrader.Custom</AssemblyName>
+    <DefineConstants>$(DefineConstants);$(CiConstants)</DefineConstants>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <LangVersion>13.0</LangVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputType>Library</OutputType>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\NinjaTrader.Custom.XML</DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="InfragisticsWPF.DataPresenter">
+      <HintPath>C:\Program Files\NinjaTrader 8\bin\InfragisticsWPF.DataPresenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Infralution.Localization.Wpf">
+      <HintPath>C:\Program Files\NinjaTrader 8\bin\Infralution.Localization.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjaTrader.Core">
+      <HintPath>C:\Program Files\NinjaTrader 8\bin\NinjaTrader.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjaTrader.Gui">
+      <HintPath>C:\Program Files\NinjaTrader 8\bin\NinjaTrader.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>C:\Program Files\NinjaTrader 8\bin\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1">
+      <HintPath>C:\Program Files\NinjaTrader 8\bin\SharpDX.Direct2D1.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaATR_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaATR_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHelperMFI_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHelperMFI_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHelperRSI_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHelperRSI_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHelperSMMA_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHelperSMMA_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHelperStochastic_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHelperStochastic_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\System.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="KingRenko_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\KingRenko_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaAAATrendSync_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaAAATrendSync_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaBestAlligator_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaBestAlligator_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaBollingerReversalPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaBollingerReversalPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaCCIReversalPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaCCIReversalPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaCCITrendPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaCCITrendPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaConnorsRSIPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaConnorsRSIPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaCumulativeDelta_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaCumulativeDelta_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaDayRange_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaDayRange_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaDeMarkerTrendPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaDeMarkerTrendPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaDivergenceEngine_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaDivergenceEngine_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaDivergenceHidden_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaDivergenceHidden_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaDragonTrend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaDragonTrend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaDWINTrend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaDWINTrend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaEasyTrend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaEasyTrend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaEOBOrdering_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaEOBOrdering_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaFakeyPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaFakeyPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaFAMESuperPivot_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaFAMESuperPivot_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaGannHiLoActivatorPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaGannHiLoActivatorPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaGlobalZlert_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaGlobalZlert_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHalfTrendPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHalfTrendPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHAMAMonster_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHAMAMonster_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHeikenAshiMFIBlend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHeikenAshiMFIBlend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHeikenAshiRSIBlend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHeikenAshiRSIBlend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHeikenAshiSmartDelta_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHeikenAshiSmartDelta_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHeikenAshiSmoothed_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHeikenAshiSmoothed_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHeikenAshiStochasticBlend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHeikenAshiStochasticBlend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHiLoView_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHiLoView_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaInnovativeOrdering_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaInnovativeOrdering_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaInsideBarPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaInsideBarPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaIntradayAdaptiveSR_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaIntradayAdaptiveSR_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaIntradayRWAPPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaIntradayRWAPPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaIntradayVWAPPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaIntradayVWAPPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaiTrendPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaiTrendPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaLastweekCriticalSR_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaLastweekCriticalSR_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMACrossover_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMACrossover_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMagicalTMABands_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMagicalTMABands_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMAHowfar_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMAHowfar_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMarketExtremes_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMarketExtremes_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMarketProfileComposite_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMarketProfileComposite_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMarketProfileDaily_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMarketProfileDaily_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMarketProfileFlexible_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMarketProfileFlexible_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMarketSpeed_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMarketSpeed_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMarketWatch_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMarketWatch_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMASlopeTrendFilter_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMASlopeTrendFilter_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMomentumPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMomentumPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMovingMedianPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMovingMedianPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMultiOscOBOSOverlap_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMultiOscOBOSOverlap_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMurreyMathOscillatorPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMurreyMathOscillatorPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaNonlagMABands_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaNonlagMABands_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaNonlagMAPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaNonlagMAPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaOrderFlowPresentation_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaOrderFlowPresentation_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaOutsideBarPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaOutsideBarPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaPeriodSequenceMagik_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaPeriodSequenceMagik_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaPhoenixSqueeze_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaPhoenixSqueeze_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaPinocchioBarPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaPinocchioBarPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaPrevdayCriticalSR_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaPrevdayCriticalSR_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaQQEPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaQQEPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRegularizedEMAPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRegularizedEMAPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRenkoStyleTrend_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRenkoStyleTrend_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRiskRewardMeter_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRiskRewardMeter_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRoundNumber_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRoundNumber_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRubyRiver_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRubyRiver_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSidewayzMA_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSidewayzMA_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSidewayzRT_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSidewayzRT_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSidewayzZP_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSidewayzZP_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSineWMAPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSineWMAPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSmartDataBox_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSmartDataBox_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSmartFlattening_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSmartFlattening_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSmartOCOAssistant_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSmartOCOAssistant_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSmartRuler_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSmartRuler_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSmartZoom_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSmartZoom_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSolarWind_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSolarWind_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSpeedupZlert_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSpeedupZlert_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaStepMAPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaStepMAPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaStochRSIPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaStochRSIPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperfastOneClick_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperfastOneClick_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorADXDMI_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorADXDMI_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorAwesome_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorAwesome_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorBollinger_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorBollinger_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorDonchian_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorDonchian_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorIchimoku_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorIchimoku_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorKeltner_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorKeltner_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorMACD_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorMACD_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorMFI_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorMFI_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorRSI_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorRSI_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorStochastic_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorStochastic_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperiorVolume_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperiorVolume_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperTrendPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperTrendPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSupplyDemandDiscovery_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSupplyDemandDiscovery_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSupportResistanceRadar_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSupportResistanceRadar_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaT3Pro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaT3Pro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTDIPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTDIPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTotalAlert_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTotalAlert_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTradingTimePro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTradingTimePro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTrendMagicPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTrendMagicPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTrioReversal_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTrioReversal_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTripleRangeRover_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTripleRangeRover_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaTStop_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaTStop_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaUniPivot_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaUniPivot_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaVIDYAPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaVIDYAPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaVoluCandlez_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaVoluCandlez_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaVolumeDelta_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaVolumeDelta_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaWaddahAttarExplosionPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaWaddahAttarExplosionPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaWoodieZLRPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaWoodieZLRPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_SolarWindRK_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_SolarWindRK_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_SumoPullback_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_SumoPullback_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_ZoneGPTFromTheFuture_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_ZoneGPTFromTheFuture_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\System.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgo - MarketStructureCHoCHBOSFractal">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgo - MarketStructureCHoCHBOSFractal.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoSessions">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoSessions.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoLiquiditySwings">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoLiquiditySwings.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoLiquiditySweeps">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoLiquiditySweeps.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoSmartMoneyConcepts">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoSmartMoneyConcepts.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoInversionFairValueGaps">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoInversionFairValueGaps.dll</HintPath>
+    </Reference>
+    <Reference Include="MACDSignalsV3">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\MACDSignalsV3.dll</HintPath>
+    </Reference>
+    <Reference Include="ADXStopSignal">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADXStopSignal.dll</HintPath>
+    </Reference>
+    <Reference Include="ADXStartSignal">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADXStartSignal.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123RenkoBarsN8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123RenkoBarsN8.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123AutoTraderN8V5C">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123AutoTraderN8V5C.dll</HintPath>
+    </Reference>
+    <Reference Include="TheHawkV3">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TheHawkV3.dll</HintPath>
+    </Reference>
+    <Reference Include="ORSFusion_2_2_VendorVersion">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ORSFusion_2_2_VendorVersion.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperTrend4U_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperTrend4U_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="SBSPublicMacID511">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SBSPublicMacID511.dll</HintPath>
+    </Reference>
+    <Reference Include="VendorLicensing">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\VendorLicensing.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateScalperSuite">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\UltimateScalperSuite.dll</HintPath>
+    </Reference>
+    <Reference Include="FVGGapBoxBOT_V06_11_23_2024_LKD">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\FVGGapBoxBOT_V06_11_23_2024_LKD.dll</HintPath>
+    </Reference>
+    <Reference Include="BMPTrendv2.7">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\BMPTrendv2.7.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123Fibs">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123Fibs.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123MovingAvg">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123MovingAvg.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123DeltaPro">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123DeltaPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123OpeningRangeBreakout">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123OpeningRangeBreakout.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123Squeeze">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123Squeeze.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123TrendLine">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123TrendLine.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123AutoTrendline">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123AutoTrendline.dll</HintPath>
+    </Reference>
+    <Reference Include="Trading123MarketCyclePro">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Trading123MarketCyclePro.dll</HintPath>
+    </Reference>
+    <Reference Include="SharkIndicators.BloodHound">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SharkIndicators.BloodHound.dll</HintPath>
+    </Reference>
+    <Reference Include="SharkIndicators.Common">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SharkIndicators.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUFootPrintTrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUFootPrintTrader.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfBusyIndicator.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfBusyIndicator.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfDiagram.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfDiagram.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfDiagramRibbon.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfDiagramRibbon.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGridCommon.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfGridCommon.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfInput.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfInput.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSkinManager.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfSkinManager.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfTreeView.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfTreeView.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.Office365.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Themes.Office365.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.Windows11Dark.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Themes.Windows11Dark.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUFootPrint">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUFootPrint.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUDynamicReversalZones">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUDynamicReversalZones.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUFootPrintDeltaCandles">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUFootPrintDeltaCandles.dll</HintPath>
+    </Reference>
+    <Reference Include="AlgoStudioPro.Common">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\AlgoStudioPro.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneticSharp.Domain">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\GeneticSharp.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneticSharp.Infrastructure.Framework">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\GeneticSharp.Infrastructure.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Jace">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Jace.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Data.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.Data.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGrid.WPF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Syncfusion.SfGrid.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="KISSOrderFlow_v2121">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\KISSOrderFlow_v2121.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUInitialBalance">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUInitialBalance.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUCumulativeDeltaVol">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUCumulativeDeltaVol.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUAutoTrendLine">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUAutoTrendLine.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUAutoTrendLine_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUAutoTrendLine_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUAutoFibs">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUAutoFibs.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUMcGinleyRiver">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUMcGinleyRiver.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUSupportResistance">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUSupportResistance.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUMultiTimeFrameMA">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUMultiTimeFrameMA.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUBigTrades">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUBigTrades.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUAtrMeanRenko">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUAtrMeanRenko.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUBuySellMomentum">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUBuySellMomentum.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUDevilsBands">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUDevilsBands.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUDevilsBreakoutTrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUDevilsBreakoutTrader.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUDevilsFriend">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUDevilsFriend.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUDevilsVolume">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUDevilsVolume.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUDivergence">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUDivergence.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUExtremes">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUExtremes.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUNewsIndicator">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUNewsIndicator.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTickSizeCalculator">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTickSizeCalculator.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUManualBackTester">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUManualBackTester.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUMarketStructure">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUMarketStructure.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUForceIndex">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUForceIndex.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUGannHiLow">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUGannHiLow.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUHalfTrend">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUHalfTrend.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUMarketCorrelation">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUMarketCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUMarketProfile">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUMarketProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUMeasuredMove">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUMeasuredMove.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUPivots">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUPivots.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUPriceAction">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUPriceAction.dll</HintPath>
+    </Reference>
+    <Reference Include="TDURenko">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDURenko.dll</HintPath>
+    </Reference>
+    <Reference Include="TDURoundNumbers">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDURoundNumbers.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUSSLChannel">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUSSLChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTMABandsScalper">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTMABandsScalper.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTradePanel">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTradePanel.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTradersDynamicIndex">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTradersDynamicIndex.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTrendMagic">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTrendMagic.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTrendWaves">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTrendWaves.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUUnfilledGap">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUUnfilledGap.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUVolumeProfile">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUVolumeProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUVolumeZigZagHistogram">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUVolumeZigZagHistogram.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUVolumeZoneOscillator">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUVolumeZoneOscillator.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUVWAP">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUVWAP.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUWaddahAttarExplosion">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUWaddahAttarExplosion.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUWickedWave">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUWickedWave.dll</HintPath>
+    </Reference>
+    <Reference Include="SniperSlingshotv19">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SniperSlingshotv19.dll</HintPath>
+    </Reference>
+    <Reference Include="NOBSBigPicture_v57">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NOBSBigPicture_v57.dll</HintPath>
+    </Reference>
+    <Reference Include="NOBSOrderFlow_v17">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NOBSOrderFlow_v17.dll</HintPath>
+    </Reference>
+    <Reference Include="SpyMoney_TheNinjaSuite_Auto_Trading_Bots">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SpyMoney_TheNinjaSuite_Auto_Trading_Bots.dll</HintPath>
+    </Reference>
+    <Reference Include="SpyMoney_TheNinjaSuite_Indicators">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SpyMoney_TheNinjaSuite_Indicators.dll</HintPath>
+    </Reference>
+    <Reference Include="ncatRSD">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ncatRSD.dll</HintPath>
+    </Reference>
+    <Reference Include="DTRQuadStoch">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\DTRQuadStoch.dll</HintPath>
+    </Reference>
+    <Reference Include="IGRID_PACK_v2.0">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\IGRID_PACK_v2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="IGRID_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\IGRID_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="TCLicensingManagerV3GridAlgo">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TCLicensingManagerV3GridAlgo.dll</HintPath>
+    </Reference>
+    <Reference Include="iGRID_EVO">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\iGRID_EVO.dll</HintPath>
+    </Reference>
+    <Reference Include="iGRID_EVO_STRAT">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\iGRID_EVO_STRAT.dll</HintPath>
+    </Reference>
+    <Reference Include="BullBearFlagTrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\BullBearFlagTrader.dll</HintPath>
+    </Reference>
+    <Reference Include="ABC123TraderInvestorsPack2021">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ABC123TraderInvestorsPack2021.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_CosmikZTP_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_CosmikZTP_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="CosmikZTP_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\CosmikZTP_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="ERTSPack">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ERTSPack.dll</HintPath>
+    </Reference>
+    <Reference Include="AdvancedDynamicTradingSystem">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\AdvancedDynamicTradingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="TDUTradeCopier">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TDUTradeCopier.dll</HintPath>
+    </Reference>
+    <Reference Include="CustomAEDTtimeScale_grid_v1">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\CustomAEDTtimeScale_grid_v1.dll</HintPath>
+    </Reference>
+    <Reference Include="RvRsiPlus">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RvRsiPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="RvTrend">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RvTrend.dll</HintPath>
+    </Reference>
+    <Reference Include="AlgoBoxes">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\AlgoBoxes.dll</HintPath>
+    </Reference>
+    <Reference Include="RSIAITradingSystem">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RSIAITradingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="HFT_IGNITION_Import">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\HFT_IGNITION_Import.dll</HintPath>
+    </Reference>
+    <Reference Include="OFL">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\OFL.dll</HintPath>
+    </Reference>
+    <Reference Include="ADTSChannel">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADTSChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="ADTSChartTrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADTSChartTrader.dll</HintPath>
+    </Reference>
+    <Reference Include="ADTS_Renko_Bars">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADTS_Renko_Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="ADTSmsswings">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADTSmsswings.dll</HintPath>
+    </Reference>
+    <Reference Include="ADTSBuySellPower">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ADTSBuySellPower.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekConverterNT8v12">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekConverterNT8v12.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekCurrentDayOHLNT8v27">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekCurrentDayOHLNT8v27.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekInsideBarNT8v13">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekInsideBarNT8v13.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekMACDNT8v28">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekMACDNT8v28.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekMomentumProNT8v380">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekMomentumProNT8v380.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekPivotsNT8v27">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekPivotsNT8v27.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekRelativeReturnsNT8v32">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekRelativeReturnsNT8v32.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekRelativeStrengthv14">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekRelativeStrengthv14.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekVolTickNT8v10">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekVolTickNT8v10.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekPROSTRBTNT8v380">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekPROSTRBTNT8v380.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekPROSTRBTXNT8v380">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekPROSTRBTXNT8v380.dll</HintPath>
+    </Reference>
+    <Reference Include="RemekPROSTRNT8v380">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RemekPROSTRNT8v380.dll</HintPath>
+    </Reference>
+    <Reference Include="EagleEyeBasic">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\EagleEyeBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="ABC123SISTRUCTURE">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ABC123SISTRUCTURE.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartChannels">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SmartChannels.dll</HintPath>
+    </Reference>
+    <Reference Include="WiSwing">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\WiSwing.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeNTrade_Bundle_1601">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\CodeNTrade_Bundle_1601.dll</HintPath>
+    </Reference>
+    <Reference Include="HGANT">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\HGANT.dll</HintPath>
+    </Reference>
+    <Reference Include="HolyGrailAlgo_TLG@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\HolyGrailAlgo_TLG@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeIndicatorsPack">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\FreeIndicatorsPack.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaFantasticMARibbon_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaFantasticMARibbon_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="DtPlannedLevelsVisualizer">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\DtPlannedLevelsVisualizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Moneyball_1_2_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Moneyball_1_2_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="QRenko_1_1_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QRenko_1_1_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsInput">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\WindowsInput.dll</HintPath>
+    </Reference>
+    <Reference Include="PTZMultiInstrumentLevels">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\PTZMultiInstrumentLevels.dll</HintPath>
+    </Reference>
+    <Reference Include="ZBox">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\ZBox.dll</HintPath>
+    </Reference>
+    <Reference Include="BOFMBO">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\BOFMBO.dll</HintPath>
+    </Reference>
+    <Reference Include="LegendaryTraderIndicator_v1_4">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LegendaryTraderIndicator_v1_4.dll</HintPath>
+    </Reference>
+    <Reference Include="LegendaryTraderStrategy_v2_3">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LegendaryTraderStrategy_v2_3.dll</HintPath>
+    </Reference>
+    <Reference Include="EdgeRunner_ANY">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\EdgeRunner_ANY.dll</HintPath>
+    </Reference>
+    <Reference Include="EdgeRunnerAuto_ANY">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\EdgeRunnerAuto_ANY.dll</HintPath>
+    </Reference>
+    <Reference Include="BreakOutTraderPro5_ANY">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\BreakOutTraderPro5_ANY.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoNadarayaWatsonEstimator">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoNadarayaWatsonEstimator.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoRangeDetector">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoRangeDetector.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoSuperTrendAIClustering">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoSuperTrendAIClustering.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoSessionLevelsPredictor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoSessionLevelsPredictor.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoSupplyDemandProfiles">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoSupplyDemandProfiles.dll</HintPath>
+    </Reference>
+    <Reference Include="MTrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\MTrader.dll</HintPath>
+    </Reference>
+    <Reference Include="BuySideGlobal_LiquidityZones_ANY">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\BuySideGlobal_LiquidityZones_ANY.dll</HintPath>
+    </Reference>
+    <Reference Include="SlayerV2">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SlayerV2.dll</HintPath>
+    </Reference>
+    <Reference Include="Obsidian_OrenkoPack_V1.0">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Obsidian_OrenkoPack_V1.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Obsidian_2.0">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Obsidian_2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Obsidian_IndicatorSuite_2.0.2">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Obsidian_IndicatorSuite_2.0.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Obsidian2_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Obsidian2_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="Renacie2o_v6.25_ANY">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Renacie2o_v6.25_ANY.dll</HintPath>
+    </Reference>
+    <Reference Include="IcebergAdvanced_ANY">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\IcebergAdvanced_ANY.dll</HintPath>
+    </Reference>
+    <Reference Include="MLMACDIntradayStrategy">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\MLMACDIntradayStrategy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Core">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.CpuMath">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.CpuMath.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Data">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.DataView">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.DataView.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.FastTree">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.FastTree.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.KMeansClustering">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.KMeansClustering.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.LightGbm">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.LightGbm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.OneDal">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.OneDal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.PCA">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.PCA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.StandardTrainers">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.StandardTrainers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.TensorFlow">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.TensorFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Transforms">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Microsoft.ML.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory4012">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\System.Memory4012.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Tensors">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\System.Numerics.Tensors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="SlopeIndicator">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SlopeIndicator.dll</HintPath>
+    </Reference>
+    <Reference Include="BOF">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\BOF.dll</HintPath>
+    </Reference>
+    <Reference Include="TS_MACDMomentum_V1.0.0.0">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TS_MACDMomentum_V1.0.0.0.dll</HintPath>
+    </Reference>
+    <Reference Include="DepositKiller">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\DepositKiller.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoVolumeDeltaMethodsChart">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoVolumeDeltaMethodsChart.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoVolumeDeltaCandles">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoVolumeDeltaCandles.dll</HintPath>
+    </Reference>
+    <Reference Include="LuxAlgoVolumeDeltaTrailingStop">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\LuxAlgoVolumeDeltaTrailingStop.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaImpulseMACDPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaImpulseMACDPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaImbalanceProfileLidar_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaImbalanceProfileLidar_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaIPL_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaIPL_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaVoluTankArmy_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaVoluTankArmy_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMagnetOscTurbo_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMagnetOscTurbo_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaQuickDrawing_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaQuickDrawing_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaBossOrderBlock_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaBossOrderBlock_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_ThunderZilla_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_ThunderZilla_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="iFVGAutotrader.VMRuntime">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\iFVGAutotrader.VMRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="IFVGAutotrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\IFVGAutotrader.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaKingDOM_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaKingDOM_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_KingOrderBlock_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_KingOrderBlock_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaMultiTimeframeFusion_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaMultiTimeframeFusion_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="SolarWindRK_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\SolarWindRK_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="TCAutoOptimizingMACD_km">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TCAutoOptimizingMACD_km.dll</HintPath>
+    </Reference>
+    <Reference Include="TCAutoOptimizingStochastic_km">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\TCAutoOptimizingStochastic_km.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRenko_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRenko_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="MasterSuite">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\MasterSuite.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaHorizontalLabel_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaHorizontalLabel_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaBarStatus_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaBarStatus_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSonarlikeIcebergFinder_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSonarlikeIcebergFinder_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaQuantumVolDelta_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaQuantumVolDelta_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="PredatorXOrderEntry_LT_V3.1.0.3">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\PredatorXOrderEntry_LT_V3.1.0.3.dll</HintPath>
+    </Reference>
+    <Reference Include="EliteLicenser">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\EliteLicenser.dll</HintPath>
+    </Reference>
+    <Reference Include="PredatorXPullback_V1.0.8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\PredatorXPullback_V1.0.8.dll</HintPath>
+    </Reference>
+    <Reference Include="EliteLicenser">
+      <HintPath>C:\Users\ngrac\OneDrive\Desktop\EliteLicenser.dll</HintPath>
+    </Reference>
+    <Reference Include="NinzaCoUnlocker">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinzaCoUnlocker.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaWWaveVolumePro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaWWaveVolumePro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaXDayCriticalSR_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaXDayCriticalSR_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaXDayRollingPivot_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaXDayRollingPivot_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_RevOutScalping_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_RevOutScalping_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="AplusGannHighLow_1.9">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\AplusGannHighLow_1.9.dll</HintPath>
+    </Reference>
+    <Reference Include="FisherTransformMOD_1.7.1">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\FisherTransformMOD_1.7.1.dll</HintPath>
+    </Reference>
+    <Reference Include="APlus_ReverseMullet_1.9.8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlus_ReverseMullet_1.9.8.dll</HintPath>
+    </Reference>
+    <Reference Include="APlus_BP_Panel_1.3.1">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlus_BP_Panel_1.3.1.dll</HintPath>
+    </Reference>
+    <Reference Include="APlus_BottomPicker_1.5.6">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlus_BottomPicker_1.5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="APlus_108_1.4.1">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlus_108_1.4.1.dll</HintPath>
+    </Reference>
+    <Reference Include="APlus_CentreLine_2.5">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlus_CentreLine_2.5.dll</HintPath>
+    </Reference>
+    <Reference Include="S007Levels_1.7">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\S007Levels_1.7.dll</HintPath>
+    </Reference>
+    <Reference Include="APlus_Jiggle_2.7">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlus_Jiggle_2.7.dll</HintPath>
+    </Reference>
+    <Reference Include="APlusTripleFocus_1.4">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlusTripleFocus_1.4.dll</HintPath>
+    </Reference>
+    <Reference Include="APlusNetChangeBundle_1.7">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlusNetChangeBundle_1.7.dll</HintPath>
+    </Reference>
+    <Reference Include="A_PlusPOC_2.4.1">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\A_PlusPOC_2.4.1.dll</HintPath>
+    </Reference>
+    <Reference Include="APlusThePocket_1.6">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\APlusThePocket_1.6.dll</HintPath>
+    </Reference>
+    <Reference Include="QuantVueConnector">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QuantVueConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="QbankIndicator_1_0_2_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QbankIndicator_1_0_2_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="Qcloud_1_3_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Qcloud_1_3_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="Qdirector_1_2_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Qdirector_1_2_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="Qgrid_1_3_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Qgrid_1_3_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="QPilotPro">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QPilotPro.dll</HintPath>
+    </Reference>
+    <Reference Include="QgridStrat_1_3_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QgridStrat_1_3_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="QgridBankStrat">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QgridBankStrat.dll</HintPath>
+    </Reference>
+    <Reference Include="QgridEliteStrat">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QgridEliteStrat.dll</HintPath>
+    </Reference>
+    <Reference Include="QgridLeonStrat_1_0_1_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QgridLeonStrat_1_0_1_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="Qmomentum_1_5_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Qmomentum_1_5_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="QTimeRenko">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QTimeRenko.dll</HintPath>
+    </Reference>
+    <Reference Include="QstepMAIndicator_1_0_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QstepMAIndicator_1_0_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="Qwave_1_5_Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Qwave_1_5_Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="QKronos">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\QKronos.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaEOBExit_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaEOBExit_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="RenkoKings_NobleCloud_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\RenkoKings_NobleCloud_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaSuperJumpBoost_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaSuperJumpBoost_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="Replikanto">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\Replikanto.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaRomantickPulse_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaRomantickPulse_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaGravityOrbitX_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaGravityOrbitX_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaPANAKanal_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaPANAKanal_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="PanaKanal_Telegram@Val1312q">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\PanaKanal_Telegram@Val1312q.dll</HintPath>
+    </Reference>
+    <Reference Include="HelloWin_CaptainOptimusStrong_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\HelloWin_CaptainOptimusStrong_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaResources_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaResources_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="HelloWin_InfinityAlgoEngine_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\HelloWin_InfinityAlgoEngine_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="GuadianAngelTrader">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\GuadianAngelTrader.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaBollingerPercentB_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaBollingerPercentB_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="NinZaBollingerPercentBPro_NT8">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinZaBollingerPercentBPro_NT8.dll</HintPath>
+    </Reference>
+    <Reference Include="PredatorXOrderEntryLT_V3.8.1.5">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\PredatorXOrderEntryLT_V3.8.1.5.dll</HintPath>
+    </Reference>
+    <Reference Include="PredatorIndicators">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\PredatorIndicators.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjaTrader.Vendor">
+      <HintPath>C:\Users\ngrac\Documents\NinjaTrader 8\bin\Custom\NinjaTrader.Vendor.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\WindowsBase.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\PresentationCore.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\PresentationFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\UIAutomationProvider.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ActiproSoftware.Controls.WPF.SyntaxEditor.Addons.DotNet" Version="25.1.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Indicators\%40IchimokuCloud.cs" />
+    <Compile Include="Indicators\%40FVG.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="BarsTypes\%40DayBarsType.cs" />
+    <Compile Include="BarsTypes\%40HeikenAshiBarsType.cs" />
+    <Compile Include="BarsTypes\%40KagiBarsType.cs" />
+    <Compile Include="BarsTypes\%40LineBreakBarsType.cs" />
+    <Compile Include="BarsTypes\%40MinuteBarsType.cs" />
+    <Compile Include="BarsTypes\%40MonthBarsType.cs" />
+    <Compile Include="BarsTypes\%40PointAndFigureBarsType.cs" />
+    <Compile Include="BarsTypes\%40RangeBarsType.cs" />
+    <Compile Include="BarsTypes\%40RenkoBarsType.cs" />
+    <Compile Include="BarsTypes\%40SecondBarsType.cs" />
+    <Compile Include="BarsTypes\%40TickBarsType.cs" />
+    <Compile Include="BarsTypes\%40VolumeBarsType.cs" />
+    <Compile Include="BarsTypes\%40WeekBarsType.cs" />
+    <Compile Include="BarsTypes\%40YearsBarsType.cs" />
+    <Compile Include="ChartStyles\%40BoxStyle.cs" />
+    <Compile Include="ChartStyles\%40Equivolume.cs" />
+    <Compile Include="ChartStyles\%40HollowCandleStyle.cs" />
+    <Compile Include="ChartStyles\%40CandleStyle.cs" />
+    <Compile Include="ChartStyles\%40KagiStyle.cs" />
+    <Compile Include="ChartStyles\%40LineOnCloseStyle.cs" />
+    <Compile Include="ChartStyles\%40MountainStyle.cs" />
+    <Compile Include="ChartStyles\%40OhlcStyle.cs" />
+    <Compile Include="ChartStyles\%40OpenCloseStyle.cs" />
+    <Compile Include="ChartStyles\%40PointAndFigureStyle.cs" />
+    <Compile Include="DrawingTools\%40AndrewsPitchfork.cs" />
+    <Compile Include="DrawingTools\%40Arc.cs" />
+    <Compile Include="DrawingTools\%40ChartMarkers.cs" />
+    <Compile Include="DrawingTools\%40PathTool.cs" />
+    <Compile Include="DrawingTools\%40Polygon.cs" />
+    <Compile Include="DrawingTools\%40Ruler.cs" />
+    <Compile Include="DrawingTools\%40Text.cs" />
+    <Compile Include="DrawingTools\%40FibonacciTools.cs" />
+    <Compile Include="DrawingTools\%40GannFan.cs" />
+    <Compile Include="DrawingTools\%40Lines.cs" />
+    <Compile Include="DrawingTools\%40PriceLevels.cs" />
+    <Compile Include="DrawingTools\%40Region.cs" />
+    <Compile Include="DrawingTools\%40RegionHighlight.cs" />
+    <Compile Include="DrawingTools\%40RegressionChannel.cs" />
+    <Compile Include="DrawingTools\%40RiskReward.cs" />
+    <Compile Include="DrawingTools\%40Shapes.cs" />
+    <Compile Include="DrawingTools\%40TimeCycles.cs" />
+    <Compile Include="DrawingTools\%40TrendChannel.cs" />
+    <Compile Include="ImportTypes\%40TickDataImportType.cs" />
+    <Compile Include="Indicators\%40BarTimer.cs" />
+    <Compile Include="Indicators\%40Correlation.cs" />
+    <Compile Include="Indicators\%40BlockVolume.cs" />
+    <Compile Include="Indicators\%40BuySellVolume.cs" />
+    <Compile Include="Indicators\%40CamarillaPivots.cs" />
+    <Compile Include="Indicators\%40CandleStickPattern.cs" />
+    <Compile Include="Indicators\%40ChoppinessIndex.cs" />
+    <Compile Include="Indicators\%40COT.cs" />
+    <Compile Include="Indicators\%40Darvas.cs" />
+    <Compile Include="Indicators\%40DisparityIndex.cs" />
+    <Compile Include="Indicators\%40FibonacciPivots.cs" />
+    <Compile Include="Indicators\%40DrawingToolTile.cs" />
+    <Compile Include="Indicators\%40McClellanOscillator.cs" />
+    <Compile Include="Indicators\%40MoneyFlowOscillator.cs" />
+    <Compile Include="Indicators\%40MovingAverageRibbon.cs" />
+    <Compile Include="Indicators\%40NetChangeDisplay.cs" />
+    <Compile Include="Indicators\%40Pivots.cs" />
+    <Compile Include="Indicators\%40PriceLine.cs" />
+    <Compile Include="Indicators\%40PsychologicalLine.cs" />
+    <Compile Include="Indicators\%40RangeCounter.cs" />
+    <Compile Include="Indicators\%40RelativeVigorIndex.cs" />
+    <Compile Include="Indicators\%40SampleCustomRender.cs" />
+    <Compile Include="Indicators\%40TickCounter.cs" />
+    <Compile Include="Indicators\%40TrendLines.cs" />
+    <Compile Include="Indicators\%40VolumeCounter.cs" />
+    <Compile Include="Indicators\%40VolumeProfile.cs" />
+    <Compile Include="Indicators\%40VolumeUpDown.cs" />
+    <Compile Include="Indicators\%40VolumeZones.cs" />
+    <Compile Include="Indicators\%40Vortex.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40ChartMini.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40ChartNetChange.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DaysUntilRollover.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40NetChangeMaxDown.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40NetChangeMaxUp.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40TSTrend.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxStrength.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxStrengthLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxStrengthShort.cs" />
+    <Compile Include="Optimizers\%40StrategyGenerator.cs" />
+    <Compile Include="ResourceEnumConverter.cs" />
+    <Compile Include="ImportTypes\%40TextImportType.cs" />
+    <Compile Include="ImportTypes\%40TextImportTypeBeginningOfBar.cs" />
+    <Compile Include="Indicators\%40ADX.cs" />
+    <Compile Include="Indicators\%40Aroon.cs" />
+    <Compile Include="Indicators\%40AroonOscillator.cs" />
+    <Compile Include="Indicators\%40ATR.cs" />
+    <Compile Include="Indicators\%40Bollinger.cs" />
+    <Compile Include="Indicators\%40CCI.cs" />
+    <Compile Include="Indicators\%40ChaikinMoneyFlow.cs" />
+    <Compile Include="Indicators\%40ChaikinOscillator.cs" />
+    <Compile Include="Indicators\%40CurrentDayOHL.cs" />
+    <Compile Include="Indicators\%40DMI.cs" />
+    <Compile Include="Indicators\%40DonchianChannel.cs" />
+    <Compile Include="Indicators\%40EMA.cs" />
+    <Compile Include="Indicators\%40FisherTransform.cs" />
+    <Compile Include="Indicators\%40Indicator.cs" />
+    <Compile Include="Indicators\%40KeltnerChannel.cs" />
+    <Compile Include="Indicators\%40LinReg.cs" />
+    <Compile Include="Indicators\%40MACD.cs" />
+    <Compile Include="Indicators\%40MAMA.cs" />
+    <Compile Include="Indicators\%40MAX.cs" />
+    <Compile Include="Indicators\%40MFI.cs" />
+    <Compile Include="Indicators\%40MIN.cs" />
+    <Compile Include="Indicators\%40Momentum.cs" />
+    <Compile Include="Indicators\%40OBV.cs" />
+    <Compile Include="Indicators\%40PriceOscillator.cs" />
+    <Compile Include="Indicators\%40PriorDayOHLC.cs" />
+    <Compile Include="Indicators\%40ROC.cs" />
+    <Compile Include="Indicators\%40RSI.cs" />
+    <Compile Include="Indicators\%40SMA.cs" />
+    <Compile Include="Indicators\%40StdDev.cs" />
+    <Compile Include="Indicators\%40Stochastics.cs" />
+    <Compile Include="Indicators\%40StochasticsFast.cs" />
+    <Compile Include="Indicators\%40SUM.cs" />
+    <Compile Include="Indicators\%40Swing.cs" />
+    <Compile Include="Indicators\%40TMA.cs" />
+    <Compile Include="Indicators\%40TSI.cs" />
+    <Compile Include="Indicators\%40VOL.cs" />
+    <Compile Include="Indicators\%40WilliamsR.cs" />
+    <Compile Include="Indicators\%40WMA.cs" />
+    <Compile Include="Indicators\%40ADL.cs" />
+    <Compile Include="Indicators\%40ADXR.cs" />
+    <Compile Include="Indicators\%40BOP.cs" />
+    <Compile Include="Indicators\%40Range.cs" />
+    <Compile Include="Indicators\%40APZ.cs" />
+    <Compile Include="Indicators\%40ChaikinVolatility.cs" />
+    <Compile Include="Indicators\%40CMO.cs" />
+    <Compile Include="Indicators\%40ConstantLines.cs" />
+    <Compile Include="Indicators\%40DEMA.cs" />
+    <Compile Include="Indicators\%40DM.cs" />
+    <Compile Include="Indicators\%40DoubleStochastics.cs" />
+    <Compile Include="Indicators\%40EaseOfMovement.cs" />
+    <Compile Include="Indicators\%40TSF.cs" />
+    <Compile Include="Indicators\%40DMIndex.cs" />
+    <Compile Include="Indicators\%40FOSC.cs" />
+    <Compile Include="Indicators\%40HMA.cs" />
+    <Compile Include="Indicators\%40KAMA.cs" />
+    <Compile Include="Indicators\%40KeyReversalDown.cs" />
+    <Compile Include="Indicators\%40KeyReversalUp.cs" />
+    <Compile Include="Indicators\%40LinRegIntercept.cs" />
+    <Compile Include="Indicators\%40LinRegSlope.cs" />
+    <Compile Include="Indicators\%40NBarsDown.cs" />
+    <Compile Include="Indicators\%40NBarsUp.cs" />
+    <Compile Include="Indicators\%40TEMA.cs" />
+    <Compile Include="Indicators\%40MAEnvelopes.cs" />
+    <Compile Include="Indicators\%40ParabolicSAR.cs" />
+    <Compile Include="Indicators\%40PFE.cs" />
+    <Compile Include="Indicators\%40PPO.cs" />
+    <Compile Include="Indicators\%40RegressionChannel.cs" />
+    <Compile Include="Indicators\%40RIND.cs" />
+    <Compile Include="Indicators\%40RSquared.cs" />
+    <Compile Include="Indicators\%40RSS.cs" />
+    <Compile Include="Indicators\%40RVI.cs" />
+    <Compile Include="Indicators\%40StdError.cs" />
+    <Compile Include="Indicators\%40StochRSI.cs" />
+    <Compile Include="Indicators\%40T3.cs" />
+    <Compile Include="Indicators\%40TRIX.cs" />
+    <Compile Include="Indicators\%40UltimateOscillator.cs" />
+    <Compile Include="Indicators\%40VMA.cs" />
+    <Compile Include="Indicators\%40VOLMA.cs" />
+    <Compile Include="Indicators\%40VolumeOscillator.cs" />
+    <Compile Include="Indicators\%40VROC.cs" />
+    <Compile Include="Indicators\%40VWMA.cs" />
+    <Compile Include="Indicators\%40ZLEMA.cs" />
+    <Compile Include="Indicators\%40BuySellPressure.cs" />
+    <Compile Include="Indicators\%40ZigZag.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40AskPrice.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40AskSize.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40AverageDailyVolume.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Beta.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40BidAskSpread.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40BidPrice.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40BidSize.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40CalendarYearHigh.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40CalendarYearHighDate.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40CalendarYearLow.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40CalendarYearLowDate.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40CurrentRatio.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DailyHigh.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DailyLow.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DailyVolume.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Description.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DividendAmount.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DividendPayDate.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40DividendYield.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40EarningsPerShare.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40FiveYearsGrowthPercentage.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40High52Weeks.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40High52WeeksDate.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40HistoricalVolatility.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Instrument.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40LastClose.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40LastPrice.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40LastSize.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Low52Weeks.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Low52WeeksDate.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40MarketAnalyzerColumn.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40MarketCap.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40NetChange.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40NextYearsEarningsPerShare.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Notes.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Opening.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40OpenInterest.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40PercentHeldByInstitutions.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40PositionAvgPrice.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40PositionSize.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40PriceEarningsRatio.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40ProfitLoss.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40RealizedProfitLoss.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40RevenuePerShare.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40Settlement.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40SharesOutstanding.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40ShortInterest.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40ShortInterestRatio.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40TimeLastTick.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40TradedContracts.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40UnrealizedProfitLoss.cs" />
+    <Compile Include="MarketAnalyzerColumns\%40VWAP.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxAvgMfe.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxAvgMfeLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxAvgMfeShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxAvgProfit.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxAvgProfitLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxAvgProfitShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxNetProfit.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxNetProfitLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxNetProfitShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxPercentProfitable.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxPercentProfitableLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxPercentProfitableShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxProbability.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxProbabilityLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxProbabilityShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxProfitFactor.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxProfitFactorLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxProfitFactorShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxR2.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxR2Long.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxR2Short.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxSharpeRatio.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxSharpeRatioLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxSharpeRatioShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxSortinoRatio.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxSortinoRatioLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxSortinoRatioShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxUlcerRatio.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxUlcerRatioLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxUlcerRatioShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxWinLossRatio.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxWinLossRatioLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MaxWinLossRatioShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MinAvgMae.cs" />
+    <Compile Include="OptimizationFitnesses\%40MinAvgMaeLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MinAvgMaeShort.cs" />
+    <Compile Include="OptimizationFitnesses\%40MinDrawDown.cs" />
+    <Compile Include="OptimizationFitnesses\%40MinDrawDownLong.cs" />
+    <Compile Include="OptimizationFitnesses\%40MinDrawDownShort.cs" />
+    <Compile Include="Optimizers\%40DefaultOptimizer.cs" />
+    <Compile Include="Optimizers\%40GeneticOptimizer.cs" />
+    <Compile Include="PerformanceMetrics\%40PerformanceMetric.cs" />
+    <Compile Include="PerformanceMetrics\%40SampleCumProfit.cs" />
+    <Compile Include="ShareServices\%40Mail.cs" />
+    <Compile Include="ShareServices\%40StockTwits.cs" />
+    <Compile Include="ShareServices\%40TextMessage.cs" />
+    <Compile Include="ShareServices\%40Twitter.cs" />
+    <Compile Include="Strategies\%40SampleAtmStrategy.cs" />
+    <Compile Include="Strategies\%40SampleMACrossOver.cs" />
+    <Compile Include="Strategies\%40SampleMultiInstrument.cs" />
+    <Compile Include="Strategies\%40SampleMultiTimeFrame.cs" />
+    <Compile Include="Strategies\%40Strategy.cs" />
+    <Compile Include="SuperDomColumns\%40APQ.cs" />
+    <Compile Include="SuperDomColumns\%40Notes.cs" />
+    <Compile Include="SuperDomColumns\%40ProfitLoss.cs" />
+    <Compile Include="SuperDomColumns\%40Recent.cs" />
+    <Compile Include="SuperDomColumns\%40Volume.cs" />
+    <Compile Include="SuperDomColumns\%40PullingStacking.cs" />
+    <Compile Include="BarsTypes\BetterRenkoOriginal.cs" />
+    <Compile Include="BarsTypes\HFTAlgoBars.cs" />
+    <Compile Include="BarsTypes\NT8_TBars.cs" />
+    <Compile Include="BarsTypes\ProEdgeHeikenAshiBars.cs" />
+    <Compile Include="BarsTypes\RenkoATRBarsType.cs" />
+    <Compile Include="BarsTypes\UniRenkoBarsType.cs" />
+    <Compile Include="ChartStyles\BetterBrickOriginal.cs" />
+    <Compile Include="ChartStyles\UpperWickvsLoweWick.cs" />
+    <Compile Include="Indicators\AB\ABToolbarButtons.cs" />
+    <Compile Include="Indicators\AlgoTrader\AuSuperSmoothFilterATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\BalaATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\BollingerMultiBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\CoralTrendATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\DeviationTrendProfile.cs" />
+    <Compile Include="Indicators\AlgoTrader\HiLoATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\HMAHooksATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\JBSignalATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\KeltnerMultiBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\LinRegATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\MomentumExtremesATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\ParabolicSAR2.cs" />
+    <Compile Include="Indicators\AlgoTrader\PivotImpulseTrendLines.cs" />
+    <Compile Include="Indicators\AlgoTrader\RangeFilteredTrendSignalsATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\RegressionATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\TMO.cs" />
+    <Compile Include="Indicators\AlgoTrader\TrendArchitectLite.cs" />
+    <Compile Include="Indicators\AlgoTrader\TrendMagicATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\TrendSniperATRBands.cs" />
+    <Compile Include="Indicators\AlgoTrader\VMAATRBands.cs" />
+    <Compile Include="Indicators\AUN_Indi\SqueezeMomentumIndicator.cs" />
+    <Compile Include="Indicators\bcomasIndicators\bcomasLargeTradesV3.cs" />
+    <Compile Include="Indicators\bcomasIndicators\PriorDayOHLCBreakout.cs" />
+    <Compile Include="Indicators\BlueZ\BlueZHMAHooks.cs" />
+    <Compile Include="Indicators\BTMM\HeikinAshiRSIOscillator.cs" />
+    <Compile Include="Indicators\CampervanSeth\LeledcExhaustionPro.cs" />
+    <Compile Include="Indicators\CampervanSeth\WilliamsRColorBars.cs" />
+    <Compile Include="Indicators\DevIndicators\TimeSegmentHighligther.cs" />
+    <Compile Include="Indicators\Emerald\BuySellVolumePressure_MOD.cs" />
+    <Compile Include="Indicators\gem\gemSqueeze.cs" />
+    <Compile Include="Indicators\GraciIndicators\ALMA.cs" />
+    <Compile Include="Indicators\GraciIndicators\VWAPAndPivots.cs" />
+    <Compile Include="Indicators\GraciIndicators\VWAPAndPivots2.cs" />
+    <Compile Include="Indicators\GraciIndicators\VWAPPivotIndicator.cs" />
+    <Compile Include="Indicators\Infinity\AccumulationSwingIndex.cs" />
+    <Compile Include="Indicators\Infinity\ECO2New2.cs" />
+    <Compile Include="Indicators\Infinity\HalfTrend.cs" />
+    <Compile Include="Indicators\Infinity\HalfTrendMobius.cs" />
+    <Compile Include="Indicators\Infinity\SupDemZones.cs" />
+    <Compile Include="Indicators\JOO\JOOBelkhayateCOG.cs" />
+    <Compile Include="Indicators\MA5\RectangleExtender.cs" />
+    <Compile Include="Indicators\mah_Indicators\mahTrendGRaBer2.cs" />
+    <Compile Include="Indicators\Myindicators\A921pulback.cs" />
+    <Compile Include="Indicators\Myindicators\CustomMAArrows.cs" />
+    <Compile Include="Indicators\Pdt\ZScoreV10.cs" />
+    <Compile Include="Indicators\PriceActionSwing\PriceActionSwingBase.cs" />
+    <Compile Include="Indicators\PriceActionSwing\PriceActionSwingOscillator.cs" />
+    <Compile Include="Indicators\PriceActionSwing\PriceActionSwingPro.cs" />
+    <Compile Include="Indicators\PropTraderz\GoldenSetupV3_1.cs" />
+    <Compile Include="Indicators\PropTraderz\PtzGLManager.cs" />
+    <Compile Include="Indicators\Prop_Trader_Tools\SimpleTradeCopier.cs" />
+    <Compile Include="Indicators\Sky\SkyMultiOBOS_v5.cs" />
+    <Compile Include="Indicators\Sky\SkyTrendMagic2.cs" />
+    <Compile Include="Indicators\SMM\%40%40MTFEmaFilter.cs" />
+    <Compile Include="Indicators\SMM\SimpleMoneyMetricsCommon.cs" />
+    <Compile Include="Indicators\SMM\SimpleMoneyMetricsDashboard.cs" />
+    <Compile Include="Indicators\SMM\SimpleMoneyMetricsMain.cs" />
+    <Compile Include="Indicators\TG\BarInfo.cs" />
+    <Compile Include="Indicators\TG\ColorRegions.cs" />
+    <Compile Include="Indicators\TradeSaber\ATRTrailBands.cs" />
+    <Compile Include="Indicators\TradeSaber\NinzaPulback.cs" />
+    <Compile Include="Indicators\TradeSaber\ORB_TradeSaber.cs" />
+    <Compile Include="Indicators\TradeSaber\ReversalTS.cs" />
+    <Compile Include="Indicators\TradeSaber_SignalMod\B4v3_TSMod.cs" />
+    <Compile Include="Indicators\TradeSaber_SignalMod\gbSaberADXFilter.cs" />
+    <Compile Include="Indicators\TradeSaber_SignalMod\HalfTrendSignalMod.cs" />
+    <Compile Include="Indicators\TradeSaber_SignalMod\HMACrossIndicator.cs" />
+    <Compile Include="Indicators\TradeSaber_SignalMod\TOWilliamsTraderOracleSignalMOD.cs" />
+    <Compile Include="Indicators\TrendIsYourFriend\tiyfTradePlanFactory.cs" />
+    <Compile Include="Indicators\Eaton\ThirdPartyTools\ExitAdjuster.cs" />
+    <Compile Include="Indicators\FxStill\SmartMoney\MarketStructuresLite.cs" />
+    <Compile Include="Indicators\Gemify\ICTFVG\ICTFVG.cs" />
+    <Compile Include="Indicators\Gemify\InitialBalance\InitialBalance.cs" />
+    <Compile Include="Indicators\Gemify\OrderLineDecorator\OrderLineDecorator.cs" />
+    <Compile Include="Indicators\%40%40amaPivotsDailyBak.cs" />
+    <Compile Include="Indicators\%40%40ChartMarkerPlusExample.cs" />
+    <Compile Include="Indicators\%40%40DouceurDeLiberte.cs" />
+    <Compile Include="Indicators\%40%40LorentzianClassificationBak.cs" />
+    <Compile Include="Indicators\%40%40MACDuo.cs" />
+    <Compile Include="Indicators\%40%40MarketSR.cs" />
+    <Compile Include="Indicators\%40%40SimpleMarketMetrics.cs" />
+    <Compile Include="Indicators\%40%40SimpleMarketMetricsSR.cs" />
+    <Compile Include="Indicators\%40%40SimpleMarketMetricsTest.cs" />
+    <Compile Include="Indicators\%40%40SMMLiteCombinedSignal.cs" />
+    <Compile Include="Indicators\AADB.cs" />
+    <Compile Include="Indicators\AddPlotNamesV2a.cs" />
+    <Compile Include="Indicators\AdvancedSRZones.cs" />
+    <Compile Include="Indicators\ADXMA.cs" />
+    <Compile Include="Indicators\AdxRviArrows.cs" />
+    <Compile Include="Indicators\AdxRviCombo.cs" />
+    <Compile Include="Indicators\ADXVMAButtonBand.cs" />
+    <Compile Include="Indicators\AKTrendOscillator.cs" />
+    <Compile Include="Indicators\AlightenButtonPanel.cs" />
+    <Compile Include="Indicators\AlightenDynamicLevels.cs" />
+    <Compile Include="Indicators\AlightenDynamicLevelsV3.cs" />
+    <Compile Include="Indicators\AlMaCrossers.cs" />
+    <Compile Include="Indicators\amaAdaptiveLaguerreFilter.cs" />
+    <Compile Include="Indicators\amaADXVMA.cs" />
+    <Compile Include="Indicators\amaADXVMAPlus.cs" />
+    <Compile Include="Indicators\amaATR.cs" />
+    <Compile Include="Indicators\amaButterworthFilter.cs" />
+    <Compile Include="Indicators\amaDHMA.cs" />
+    <Compile Include="Indicators\amaDistantCoefficientFilter.cs" />
+    <Compile Include="Indicators\amaDWMA.cs" />
+    <Compile Include="Indicators\amaEHMA.cs" />
+    <Compile Include="Indicators\amaGaussianFilter.cs" />
+    <Compile Include="Indicators\amaHoltEMA.cs" />
+    <Compile Include="Indicators\amaLaguerreFilter.cs" />
+    <Compile Include="Indicators\amaMAX.cs" />
+    <Compile Include="Indicators\amaMIN.cs" />
+    <Compile Include="Indicators\amaMovingMeanTPO.cs" />
+    <Compile Include="Indicators\amaMovingMeanVWTPO.cs" />
+    <Compile Include="Indicators\amaMovingMedian.cs" />
+    <Compile Include="Indicators\amaMovingMedianTPO.cs" />
+    <Compile Include="Indicators\amaMovingMedianVWTPO.cs" />
+    <Compile Include="Indicators\amaMultiTSI.cs" />
+    <Compile Include="Indicators\amaOpeningRange.cs" />
+    <Compile Include="Indicators\amaPivotsDaily.cs" />
+    <Compile Include="Indicators\amaPivotsHourly.cs" />
+    <Compile Include="Indicators\amaRegressionChannel.cs" />
+    <Compile Include="Indicators\amaRWMA.cs" />
+    <Compile Include="Indicators\amaSMI.cs" />
+    <Compile Include="Indicators\amaSuperSmoother.cs" />
+    <Compile Include="Indicators\amaSuperTrendU11.cs" />
+    <Compile Include="Indicators\amaSWMA.cs" />
+    <Compile Include="Indicators\amaTillsonT3.cs" />
+    <Compile Include="Indicators\amaTWMA.cs" />
+    <Compile Include="Indicators\amaZerolagHATEMA.cs" />
+    <Compile Include="Indicators\amaZerolagTEMA.cs" />
+    <Compile Include="Indicators\AnchoredMomentumOscillator.cs" />
+    <Compile Include="Indicators\AnchoredRegressionChannel.cs" />
+    <Compile Include="Indicators\ARegT31.cs" />
+    <Compile Include="Indicators\ArrowsDB.cs" />
+    <Compile Include="Indicators\ArrowsDB2.cs" />
+    <Compile Include="Indicators\ASAPSMI.cs" />
+    <Compile Include="Indicators\ATMStrategyIdentifier.cs" />
+    <Compile Include="Indicators\AuADXVMA.cs" />
+    <Compile Include="Indicators\AuButterworthFilter.cs" />
+    <Compile Include="Indicators\AuDEMA.cs" />
+    <Compile Include="Indicators\AuDSMA.cs" />
+    <Compile Include="Indicators\AuDTMA.cs" />
+    <Compile Include="Indicators\AuDWMA.cs" />
+    <Compile Include="Indicators\AuEhlersFilter.cs" />
+    <Compile Include="Indicators\AuEMA.cs" />
+    <Compile Include="Indicators\AuGaussianFilter.cs" />
+    <Compile Include="Indicators\AuHMA.cs" />
+    <Compile Include="Indicators\AuHoltEMA.cs" />
+    <Compile Include="Indicators\AuLinReg.cs" />
+    <Compile Include="Indicators\AuLLMA.cs" />
+    <Compile Include="Indicators\AuMovingMedian.cs" />
+    <Compile Include="Indicators\AuSMA.cs" />
+    <Compile Include="Indicators\AuSuperSmootherFilter.cs" />
+    <Compile Include="Indicators\AuSuperTrendU11.cs" />
+    <Compile Include="Indicators\AuTEMA.cs" />
+    <Compile Include="Indicators\AuTMA.cs" />
+    <Compile Include="Indicators\AutoTrendHNT8.cs" />
+    <Compile Include="Indicators\AutoTrendLine.cs" />
+    <Compile Include="Indicators\AuTSMA.cs" />
+    <Compile Include="Indicators\AuTWMA.cs" />
+    <Compile Include="Indicators\AuVWMA.cs" />
+    <Compile Include="Indicators\AuWMA.cs" />
+    <Compile Include="Indicators\AuZeroLagHATEMA.cs" />
+    <Compile Include="Indicators\AuZeroLagTEMA.cs" />
+    <Compile Include="Indicators\AuZLEMA.cs" />
+    <Compile Include="Indicators\BackGroundPaint.cs" />
+    <Compile Include="Indicators\BankItSystem.cs" />
+    <Compile Include="Indicators\BarsTypeIdentifier.cs" />
+    <Compile Include="Indicators\BarTimerHybrid.cs" />
+    <Compile Include="Indicators\BESLChartPanel.cs" />
+    <Compile Include="Indicators\BigFour.cs" />
+    <Compile Include="Indicators\BltTriggerLines.cs" />
+    <Compile Include="Indicators\BltTriggerLinesColorRegion.cs" />
+    <Compile Include="Indicators\BlueZTradeZone (5).cs" />
+    <Compile Include="Indicators\BollingerBandsSmoothed.cs" />
+    <Compile Include="Indicators\BollingerBandWidth.cs" />
+    <Compile Include="Indicators\BollingerNadarya.cs" />
+    <Compile Include="Indicators\BollingerNadaryaSmoothed.cs" />
+    <Compile Include="Indicators\BollingerTripleState_V4NT8.cs" />
+    <Compile Include="Indicators\BraidFilter.cs" />
+    <Compile Include="Indicators\BraidFilterWithSignals.cs" />
+    <Compile Include="Indicators\BraidSimpleSignals.cs" />
+    <Compile Include="Indicators\BreakevenPlusX.cs" />
+    <Compile Include="Indicators\BTOpeningRange.cs" />
+    <Compile Include="Indicators\BuySellVolumePressure_MOD (3).cs" />
+    <Compile Include="Indicators\bwFractal.cs" />
+    <Compile Include="Indicators\CamarillaBox.cs" />
+    <Compile Include="Indicators\Cams.cs" />
+    <Compile Include="Indicators\ChandesTrendScore.cs" />
+    <Compile Include="Indicators\ChannelSSL.cs" />
+    <Compile Include="Indicators\ChopToTrend.cs" />
+    <Compile Include="Indicators\ClickLimitOrderIndicatorExpanded.cs" />
+    <Compile Include="Indicators\ColorThePlot.cs" />
+    <Compile Include="Indicators\CongestionBoxNTBCrev.cs" />
+    <Compile Include="Indicators\CumDelta.cs" />
+    <Compile Include="Indicators\CurrentOHLBak.cs" />
+    <Compile Include="Indicators\DamianiVolatmeter.cs" />
+    <Compile Include="Indicators\DashboardOscillator.cs" />
+    <Compile Include="Indicators\DashboardOscillatorArrows.cs" />
+    <Compile Include="Indicators\DebugLinePlot.cs" />
+    <Compile Include="Indicators\DMIWith25Line.cs" />
+    <Compile Include="Indicators\DValueArea.cs" />
+    <Compile Include="Indicators\DynamicLinearRegressionChannels.cs" />
+    <Compile Include="Indicators\DynamicSRColorBandNT8.cs" />
+    <Compile Include="Indicators\DynamicSRLines.cs" />
+    <Compile Include="Indicators\DynamicSupportResistance.cs" />
+    <Compile Include="Indicators\DynoBarsPro.cs" />
+    <Compile Include="Indicators\ElderImpulseToolforNt8.cs" />
+    <Compile Include="Indicators\EMACross.cs" />
+    <Compile Include="Indicators\EMACrossoverColor.cs" />
+    <Compile Include="Indicators\EMAofLinReg.cs" />
+    <Compile Include="Indicators\EMAWithBraid.cs" />
+    <Compile Include="Indicators\Ergodic.cs" />
+    <Compile Include="Indicators\ErgonomicCharts.cs" />
+    <Compile Include="Indicators\FibonacciAlerts.cs" />
+    <Compile Include="Indicators\FibonacciClusterV16D.cs" />
+    <Compile Include="Indicators\FibonacciClusterV16L.cs" />
+    <Compile Include="Indicators\FloatingLevels.cs" />
+    <Compile Include="Indicators\FloatingLevelsBK082623.cs" />
+    <Compile Include="Indicators\FloatingLevelsNew.cs" />
+    <Compile Include="Indicators\FloatingLevelsUp.cs" />
+    <Compile Include="Indicators\FloatingLevelsWithInput.cs" />
+    <Compile Include="Indicators\FollowLine.cs" />
+    <Compile Include="Indicators\FollowTheLine.cs" />
+    <Compile Include="Indicators\GannHiLoActivator.cs" />
+    <Compile Include="Indicators\gemMACDColorsBlueZ.cs" />
+    <Compile Include="Indicators\GraciKeyLevels.cs" />
+    <Compile Include="Indicators\GraciTest.cs" />
+    <Compile Include="Indicators\GuerillaStickIndicator.cs" />
+    <Compile Include="Indicators\HACO.cs" />
+    <Compile Include="Indicators\HARSI.cs" />
+    <Compile Include="Indicators\HeikenAshi8.cs" />
+    <Compile Include="Indicators\HeikenAshiSmoothed.cs" />
+    <Compile Include="Indicators\HFT_RSI_SCALPER.cs" />
+    <Compile Include="Indicators\HFT_Slayer.cs" />
+    <Compile Include="Indicators\HighLowBands.cs" />
+    <Compile Include="Indicators\HighLowCandles.cs" />
+    <Compile Include="Indicators\HighLowCandles30Secs.cs" />
+    <Compile Include="Indicators\HighsAndLows.cs" />
+    <Compile Include="Indicators\HiLoBands.cs" />
+    <Compile Include="Indicators\HiLowChannel.cs" />
+    <Compile Include="Indicators\HMACustom.cs" />
+    <Compile Include="Indicators\HMASuite.cs" />
+    <Compile Include="Indicators\HourlyFibs.cs" />
+    <Compile Include="Indicators\HourlyFibs2.cs" />
+    <Compile Include="Indicators\HourlyFibsSlow.cs" />
+    <Compile Include="Indicators\HourlyHighLow.cs" />
+    <Compile Include="Indicators\ImpMACDBB (1).cs" />
+    <Compile Include="Indicators\irDeltaMomentum.cs" />
+    <Compile Include="Indicators\JurbolBBmacd.cs" />
+    <Compile Include="Indicators\JurbolMultiMAColorSlope.cs" />
+    <Compile Include="Indicators\KeltnerChannelEMA.cs" />
+    <Compile Include="Indicators\Killpips.cs" />
+    <Compile Include="Indicators\KingKhanhATM.cs" />
+    <Compile Include="Indicators\KNearestEMA.cs" />
+    <Compile Include="Indicators\LEOTRENDV4.cs" />
+    <Compile Include="Indicators\LEOTRENDV402.cs" />
+    <Compile Include="Indicators\LinReg2.cs" />
+    <Compile Include="Indicators\LinRegBands.cs" />
+    <Compile Include="Indicators\LinRegCandles.cs" />
+    <Compile Include="Indicators\LinRegLine.cs" />
+    <Compile Include="Indicators\LinRegWithOffset.cs" />
+    <Compile Include="Indicators\Lorentzian.cs" />
+    <Compile Include="Indicators\LorentzianClassification.cs" />
+    <Compile Include="Indicators\LRSlopeTrendFilter.cs" />
+    <Compile Include="Indicators\LWRenkoBoundaries.cs" />
+    <Compile Include="Indicators\LWScalp.cs" />
+    <Compile Include="Indicators\LWTrendTracker.cs" />
+    <Compile Include="Indicators\MAAverage.cs" />
+    <Compile Include="Indicators\MACDCrossColor.cs" />
+    <Compile Include="Indicators\MACDImpulse.cs" />
+    <Compile Include="Indicators\MACDProV.cs" />
+    <Compile Include="Indicators\MACDSupportResistance.cs" />
+    <Compile Include="Indicators\MACDWith2MiddleLines.cs" />
+    <Compile Include="Indicators\MACrossBuilder.cs" />
+    <Compile Include="Indicators\MACustomRibbon.cs" />
+    <Compile Include="Indicators\MadridMovingAverageRibbon.cs" />
+    <Compile Include="Indicators\Momentum2.cs" />
+    <Compile Include="Indicators\MoveSLChartPanel.cs" />
+    <Compile Include="Indicators\MoveSLPlusX.cs" />
+    <Compile Include="Indicators\MTFEMA.cs" />
+    <Compile Include="Indicators\MTFEMAStatusPanel.cs" />
+    <Compile Include="Indicators\MTFMAStatusPanel.cs" />
+    <Compile Include="Indicators\MyCustomIndicator.cs" />
+    <Compile Include="Indicators\NBarsDownCustom.cs" />
+    <Compile Include="Indicators\NBarsUpCustom.cs" />
+    <Compile Include="Indicators\neVsSignals_V1_1.cs" />
+    <Compile Include="Indicators\NTSvePivots.cs" />
+    <Compile Include="Indicators\OpeningPrice.cs" />
+    <Compile Include="Indicators\OpeningRange.cs" />
+    <Compile Include="Indicators\OpeningRangeORS.cs" />
+    <Compile Include="Indicators\OptimalRSI.cs" />
+    <Compile Include="Indicators\OptimusNinja.cs" />
+    <Compile Include="Indicators\OrderEntryPanel.cs" />
+    <Compile Include="Indicators\PaperArms.cs" />
+    <Compile Include="Indicators\PaperFeet.cs" />
+    <Compile Include="Indicators\PaperHands.cs" />
+    <Compile Include="Indicators\PATSToolBar.cs" />
+    <Compile Include="Indicators\Percentile.cs" />
+    <Compile Include="Indicators\PJSReversalDetector.cs" />
+    <Compile Include="Indicators\QTEInspiredScalp.cs" />
+    <Compile Include="Indicators\RegChannel.cs" />
+    <Compile Include="Indicators\RegChannelAnchBak.cs" />
+    <Compile Include="Indicators\RegChannelTest1.cs" />
+    <Compile Include="Indicators\RegChannelWithT3Filter.cs" />
+    <Compile Include="Indicators\RegressionChannel2.cs" />
+    <Compile Include="Indicators\RegressionChannelAnchored.cs" />
+    <Compile Include="Indicators\RegressionChannelExtended.cs" />
+    <Compile Include="Indicators\RegressionChannelHighLow.cs" />
+    <Compile Include="Indicators\RelativeVolume.cs" />
+    <Compile Include="Indicators\ReverseExit.cs" />
+    <Compile Include="Indicators\ReversePositionButton.cs" />
+    <Compile Include="Indicators\RF.cs" />
+    <Compile Include="Indicators\RKEMAHigherTimeframe.cs" />
+    <Compile Include="Indicators\RMI.cs" />
+    <Compile Include="Indicators\RSICustom.cs" />
+    <Compile Include="Indicators\RSIHistogram.cs" />
+    <Compile Include="Indicators\RSILaguerre.cs" />
+    <Compile Include="Indicators\RsiLaguerreFractalEnergy.cs" />
+    <Compile Include="Indicators\RSIMA.cs" />
+    <Compile Include="Indicators\RSIMAStrat.cs" />
+    <Compile Include="Indicators\RSIMATest.cs" />
+    <Compile Include="Indicators\RSIOMA.cs" />
+    <Compile Include="Indicators\SampleBoolSeries.cs" />
+    <Compile Include="Indicators\SampleDrawTextExample.cs" />
+    <Compile Include="Indicators\ScrollsRite.cs" />
+    <Compile Include="Indicators\SDZ_MACross_Signal.cs" />
+    <Compile Include="Indicators\SecondEntry.cs" />
+    <Compile Include="Indicators\SlopeEnhancedOP.cs" />
+    <Compile Include="Indicators\SMI.cs" />
+    <Compile Include="Indicators\SMMA.cs" />
+    <Compile Include="Indicators\SMMCombinedSignalPro.cs" />
+    <Compile Include="Indicators\SMMDots.cs" />
+    <Compile Include="Indicators\SQuantLevels.cs" />
+    <Compile Include="Indicators\StochZScore.cs" />
+    <Compile Include="Indicators\SuperchargedMACD.cs" />
+    <Compile Include="Indicators\Supertrend.cs" />
+    <Compile Include="Indicators\SupplyDemandZones.cs" />
+    <Compile Include="Indicators\SupportResistanceIndicator.cs" />
+    <Compile Include="Indicators\SVEBB.cs" />
+    <Compile Include="Indicators\T3Cloud.cs" />
+    <Compile Include="Indicators\T3Color.cs" />
+    <Compile Include="Indicators\T3TrendFilter.cs" />
+    <Compile Include="Indicators\T3TrendFilterBak.cs" />
+    <Compile Include="Indicators\T3TrendFilterWithSignals.cs" />
+    <Compile Include="Indicators\TChannel3Tony.cs" />
+    <Compile Include="Indicators\TDualRSI.cs" />
+    <Compile Include="Indicators\TillsonArrowForPredator.cs" />
+    <Compile Include="Indicators\TillsonT3.cs" />
+    <Compile Include="Indicators\TimeZoneColors.cs" />
+    <Compile Include="Indicators\TMO.cs" />
+    <Compile Include="Indicators\TMODrawRegionExample.cs" />
+    <Compile Include="Indicators\TMONoPaint.cs" />
+    <Compile Include="Indicators\TMONPaint.cs" />
+    <Compile Include="Indicators\TMOPaint.cs" />
+    <Compile Include="Indicators\TPR.cs" />
+    <Compile Include="Indicators\TradeControlPanel.cs" />
+    <Compile Include="Indicators\TradeFromChart.cs" />
+    <Compile Include="Indicators\TradeToDiscord.cs" />
+    <Compile Include="Indicators\TradingPanelEN.cs" />
+    <Compile Include="Indicators\TRAdjEMA.cs" />
+    <Compile Include="Indicators\TrendMagic.cs" />
+    <Compile Include="Indicators\TrendStrengthOverTime.cs" />
+    <Compile Include="Indicators\TrendStrengthOverTimeOrig.cs" />
+    <Compile Include="Indicators\TripleEMAindicator.cs" />
+    <Compile Include="Indicators\TSSuperTrend.cs" />
+    <Compile Include="Indicators\TwoPoleOscilatorBigBeluga.cs" />
+    <Compile Include="Indicators\UltimateScalperSuite.cs" />
+    <Compile Include="Indicators\UnichoppyOFFICIAL.cs" />
+    <Compile Include="Indicators\UTBotAlerts.cs" />
+    <Compile Include="Indicators\VisEMA.cs" />
+    <Compile Include="Indicators\VolatilityBreakout.cs" />
+    <Compile Include="Indicators\VolBuySellMomentumv3.cs" />
+    <Compile Include="Indicators\VolumeDelta.cs" />
+    <Compile Include="Indicators\VWAP.cs" />
+    <Compile Include="Indicators\VWAP8.cs" />
+    <Compile Include="Indicators\VWAPNoDeviations.cs" />
+    <Compile Include="Indicators\VWAPx.cs" />
+    <Compile Include="Indicators\WaddahAttarExplosion.cs" />
+    <Compile Include="Indicators\WaveTrendV2.cs" />
+    <Compile Include="Indicators\WeisWaveDelta.cs" />
+    <Compile Include="Indicators\WilliamsREMA.cs" />
+    <Compile Include="Indicators\WilliamsRSmoothed.cs" />
+    <Compile Include="Indicators\ZiSchaffTrendCycle.cs" />
+    <Compile Include="Indicators\ZLabeledLines.cs" />
+    <Compile Include="Indicators\Zombie21Candles.cs" />
+    <Compile Include="Indicators\Zombie21EMA.cs" />
+    <Compile Include="Indicators\Zombie21MACD.cs" />
+    <Compile Include="Indicators\Zombie21SetupAlerts.cs" />
+    <Compile Include="Indicators\Zombie2BarTimer.cs" />
+    <Compile Include="Indicators\Zombie2Candles.cs" />
+    <Compile Include="Indicators\Zombie2EMA.cs" />
+    <Compile Include="Indicators\Zombie2KeltnerATR.cs" />
+    <Compile Include="Indicators\Zombie2MACD.cs" />
+    <Compile Include="Indicators\Zombie2NetPriceChange.cs" />
+    <Compile Include="Indicators\Zombie2PlainCandles.cs" />
+    <Compile Include="Indicators\Zombie2PowerLine.cs" />
+    <Compile Include="Indicators\Zombie2PriceInfo.cs" />
+    <Compile Include="Indicators\Zombie2SetupAlerts.cs" />
+    <Compile Include="Indicators\Zombie9Squeeze.cs" />
+    <Compile Include="Indicators\ZoomWithMouse.cs" />
+    <Compile Include="Strategies\AlgoTrader\AlgoBase.cs" />
+    <Compile Include="Strategies\AlgoTrader\ATBots.cs" />
+    <Compile Include="Strategies\AlgoTrader\ATIndicators.cs" />
+    <Compile Include="Strategies\AlgoTrader\ATOrderManagement.cs" />
+    <Compile Include="Strategies\AlgoTrader\ATProperties.cs" />
+    <Compile Include="Strategies\AlgoTrader\ATTradeLogger.cs" />
+    <Compile Include="Strategies\AlgoTrader\ATUserInterface.cs" />
+    <Compile Include="Strategies\AlgoTrader\DaMasterAT.cs" />
+    <Compile Include="Strategies\AlgoTrader\GrandMasterAT.cs" />
+    <Compile Include="Strategies\KCStrategies\Casher.cs" />
+    <Compile Include="Strategies\KCStrategies\Chaser.cs" />
+    <Compile Include="Strategies\KCStrategies\GSpot.cs" />
+    <Compile Include="Strategies\KCStrategies\Hooker.cs" />
+    <Compile Include="Strategies\KCStrategies\KCAlgoBase.cs" />
+    <Compile Include="Strategies\KCStrategies\KingKhanh.cs" />
+    <Compile Include="Strategies\KCStrategies\MagicTrendy.cs" />
+    <Compile Include="Strategies\KCStrategies\ManualTraderATM.cs" />
+    <Compile Include="Strategies\KCStrategies\Momo.cs" />
+    <Compile Include="Strategies\KCStrategies\Pivotty.cs" />
+    <Compile Include="Strategies\KCStrategies\Reaper.cs" />
+    <Compile Include="Strategies\KCStrategies\Reaper2.cs" />
+    <Compile Include="Strategies\KCStrategies\RegChan.cs" />
+    <Compile Include="Strategies\KCStrategies\Rosie.cs" />
+    <Compile Include="Strategies\KCStrategies\SmartMoney.cs" />
+    <Compile Include="Strategies\KCStrategies\SuperBot.cs" />
+    <Compile Include="Strategies\KCStrategies\SuperBot2.cs" />
+    <Compile Include="Strategies\KCStrategies\SuperRex.cs" />
+    <Compile Include="Strategies\KCStrategies\Trendy.cs" />
+    <Compile Include="Strategies\KCStrategies\Vima.cs" />
+    <Compile Include="Strategies\KCStrategies\Willy.cs" />
+    <Compile Include="Strategies\TradeSaberStrategies\OrderEntryButtons.cs" />
+    <Compile Include="Strategies\TradeSaberStrategies\OrderEntryButtonsNextCandle.cs" />
+    <Compile Include="Strategies\TradeSimpleStrategies\PriceActionButtons.cs" />
+    <Compile Include="Strategies\%40%40BallDeepStratTrade.cs" />
+    <Compile Include="Strategies\%40%40BallsDeepPopeMod.cs" />
+    <Compile Include="Strategies\%40%40BallsDeepStrat.cs" />
+    <Compile Include="Strategies\%40%40BallsDeepStratBak.cs" />
+    <Compile Include="Strategies\%40%40BollingerMBStrat.cs" />
+    <Compile Include="Strategies\%40%40BollingerMBStratBak.cs" />
+    <Compile Include="Strategies\%40%40BollingerMBStratBak1.cs" />
+    <Compile Include="Strategies\%40%40BollingerMBStratWithBETrail.cs" />
+    <Compile Include="Strategies\%40%40BollingerMBStratWithReversal.cs" />
+    <Compile Include="Strategies\%40%40DoceurDeLibre.cs" />
+    <Compile Include="Strategies\ninZaBollingerStrat.cs" />
+    <Compile Include="Strategies\%40%40PredatorStratTest.cs" />
+    <Compile Include="Strategies\%40%40PredatorStratTest2.cs" />
+    <Compile Include="Strategies\%40%40ZoneGPTStrat.cs" />
+    <Compile Include="Strategies\AlgoSystemBase.cs" />
+    <Compile Include="Strategies\amaZLHMACrossWithTrail.cs" />
+    <Compile Include="Strategies\ArrowTest.cs" />
+    <Compile Include="Strategies\ATSSampleMACrossOver.cs" />
+    <Compile Include="Strategies\AutoTrendHDemoNT8.cs" />
+    <Compile Include="Strategies\AuZLHMACrossStrat.cs" />
+    <Compile Include="Strategies\bak.cs" />
+    <Compile Include="Strategies\BankItStrat.cs" />
+    <Compile Include="Strategies\BankItStratv2.cs" />
+    <Compile Include="Strategies\BenStrat.cs" />
+    <Compile Include="Strategies\BigFourStrategy.cs" />
+    <Compile Include="Strategies\BreakEvenBuilderExample.cs" />
+    <Compile Include="Strategies\BreakevenMultipleTarget.cs" />
+    <Compile Include="Strategies\BreakevenTrailPartial.cs" />
+    <Compile Include="Strategies\CaptainBacktestModel.cs" />
+    <Compile Include="Strategies\CloseEMACrossStrat.cs" />
+    <Compile Include="Strategies\DailyLossLimitExample.cs" />
+    <Compile Include="Strategies\EMACrossover.cs" />
+    <Compile Include="Strategies\EMAPullback.cs" />
+    <Compile Include="Strategies\EmaRsiFilter.cs" />
+    <Compile Include="Strategies\FifteenMinVolatilityAlgo.cs" />
+    <Compile Include="Strategies\FiveMinVolatilityAlgo.cs" />
+    <Compile Include="Strategies\FLevels1130WithArrows.cs" />
+    <Compile Include="Strategies\FLevelsLower1130WithArrows.cs" />
+    <Compile Include="Strategies\FLevelsLower1130WithArrowsbak.cs" />
+    <Compile Include="Strategies\FloatBreakevenTrail.cs" />
+    <Compile Include="Strategies\FloatingLevelsStrat.cs" />
+    <Compile Include="Strategies\FloatingLevelsStratFiltersRTH.cs" />
+    <Compile Include="Strategies\FloatingLevelsStratFiltersRTH2.cs" />
+    <Compile Include="Strategies\FloatingLevelsStratFiltersRTHCopy.cs" />
+    <Compile Include="Strategies\FloatingLevelsStratFiltersRTHUntil1130.cs" />
+    <Compile Include="Strategies\FloatingLevelsStratFiltersRTHUntil1130Orig.cs" />
+    <Compile Include="Strategies\FloatingLevelStraFiltersWithShorts.cs" />
+    <Compile Include="Strategies\FloatingLevelStratFilters.cs" />
+    <Compile Include="Strategies\FlRTHPartialBreakevenTrail.cs" />
+    <Compile Include="Strategies\FlRTHPartialProfits.cs" />
+    <Compile Include="Strategies\HalfTrendStrat.cs" />
+    <Compile Include="Strategies\KingKhanhATMStrategyUI.cs" />
+    <Compile Include="Strategies\KingKhanhv110.cs" />
+    <Compile Include="Strategies\LargeTradesStrategyNT8v5.cs" />
+    <Compile Include="Strategies\LineCross.cs" />
+    <Compile Include="Strategies\LineCross2.cs" />
+    <Compile Include="Strategies\LinePullback.cs" />
+    <Compile Include="Strategies\LinRegBot.cs" />
+    <Compile Include="Strategies\LongOrShortTrailBuilderExample.cs" />
+    <Compile Include="Strategies\LONGSHORTToolbarButtonsB9.cs" />
+    <Compile Include="Strategies\MACDDMIStrat.cs" />
+    <Compile Include="Strategies\MACrossBreakevenTrail.cs" />
+    <Compile Include="Strategies\MACrossBreakevenTrailBak.cs" />
+    <Compile Include="Strategies\MACrossOver.cs" />
+    <Compile Include="Strategies\MACrossoverStratBuild.cs" />
+    <Compile Include="Strategies\MACrossoverStratBuildWithTime.cs" />
+    <Compile Include="Strategies\MACrossoverStratWithSMA.cs" />
+    <Compile Include="Strategies\ManagedRithmicIBFriendlyExample.cs" />
+    <Compile Include="Strategies\ManagedRithmicIBFriendlyMultipleEntriesExample.cs" />
+    <Compile Include="Strategies\ManagedRithmicIBFriendlySimpleExample.cs" />
+    <Compile Include="Strategies\MultiEntrySeparateExitBuilderExample.cs" />
+    <Compile Include="Strategies\MultiStepBreakeven.cs" />
+    <Compile Include="Strategies\NinjaBotAIRangev1000.cs" />
+    <Compile Include="Strategies\NinjaBotAITrendv1000.cs" />
+    <Compile Include="Strategies\NinjaBotAIVolatilityv1000.cs" />
+    <Compile Include="Strategies\NinjaPassBot.cs" />
+    <Compile Include="Strategies\ProfitTargetTrailingStop_101b.cs" />
+    <Compile Include="Strategies\QTEScalp.cs" />
+    <Compile Include="Strategies\RegChanAllHours.cs" />
+    <Compile Include="Strategies\RegChanAllHours2Pred.cs" />
+    <Compile Include="Strategies\RegChannelAllHoursBE.cs" />
+    <Compile Include="Strategies\RegChannelBeTrail.cs" />
+    <Compile Include="Strategies\RegChannelBeTrailADX.cs" />
+    <Compile Include="Strategies\RegChannelBeTrailADXv2.cs" />
+    <Compile Include="Strategies\RegChannelBETrailButtons.cs" />
+    <Compile Include="Strategies\RegChannelTOS.cs" />
+    <Compile Include="Strategies\RenkoReaper.cs" />
+    <Compile Include="Strategies\RenkoTrendADX.cs" />
+    <Compile Include="Strategies\ReversalStrat.cs" />
+    <Compile Include="Strategies\SampleBoolSeriesStrategy.cs" />
+    <Compile Include="Strategies\SampleEnterOnceExitEveryTick.cs" />
+    <Compile Include="Strategies\SDZMACrossStrategy.cs" />
+    <Compile Include="Strategies\SeparateBreakevensOnExecutionUpdateExample.cs" />
+    <Compile Include="Strategies\ShimiNQScalp.cs" />
+    <Compile Include="Strategies\SkyFireATM_v2_0_4.cs" />
+    <Compile Include="Strategies\SkyFireCustom.cs" />
+    <Compile Include="Strategies\StackedRange.cs" />
+    <Compile Include="Strategies\StrategyPeakHoursTradingNQ.cs" />
+    <Compile Include="Strategies\SuperTrendTrail.cs" />
+    <Compile Include="Strategies\SuperTrendTrail2.cs" />
+    <Compile Include="Strategies\T3RenkoStrat.cs" />
+    <Compile Include="Strategies\TestFLevelsLower1130.cs" />
+    <Compile Include="Strategies\TrailBuilderExample.cs" />
+    <Compile Include="Strategies\TrailLongShortBuilderExample.cs" />
+    <Compile Include="Strategies\TrailStrat.cs" />
+    <Compile Include="Strategies\UnmanagedRithmicIBFriendlyExample.cs" />
+    <Compile Include="Strategies\UnmanagedRithmicIBFriendlyMultipleEntriesExample.cs" />
+    <Compile Include="Strategies\UnmanagedRithmicIBSimpleExample.cs" />
+    <Compile Include="Strategies\VolatilityBreakoutPattern.cs" />
+    <Compile Include="Strategies\WizTrail4.cs" />
+    <Compile Include="Strategies\WizTrailing3.cs" />
+    <Compile Include="NinjaTrader.Vendor.cs" />
+    <Compile Include="NinZaAAATrendSync_NT8.cs" />
+    <Compile Include="NinZaBestAlligator_NT8.cs" />
+    <Compile Include="NinZaBollingerReversalPro_NT8.cs" />
+    <Compile Include="NinZaCCIReversalPro_NT8.cs" />
+    <Compile Include="NinZaCCITrendPro_NT8.cs" />
+    <Compile Include="NinZaConnorsRSIPro_NT8.cs" />
+    <Compile Include="NinZaCumulativeDelta_NT8.cs" />
+    <Compile Include="NinZaDayRange_NT8.cs" />
+    <Compile Include="NinZaDeMarkerTrendPro_NT8.cs" />
+    <Compile Include="NinZaDivergenceEngine_NT8.cs" />
+    <Compile Include="NinZaDivergenceHidden_NT8.cs" />
+    <Compile Include="NinZaDragonTrend_NT8.cs" />
+    <Compile Include="NinZaDWINTrend_NT8.cs" />
+    <Compile Include="NinZaEasyTrend_NT8.cs" />
+    <Compile Include="NinZaEOBOrdering_NT8.cs" />
+    <Compile Include="NinZaFakeyPro_NT8.cs" />
+    <Compile Include="NinZaFAMESuperPivot_NT8.cs" />
+    <Compile Include="NinZaGannHiLoActivatorPro_NT8.cs" />
+    <Compile Include="NinZaGlobalZlert_NT8.cs" />
+    <Compile Include="NinZaHalfTrendPro_NT8.cs" />
+    <Compile Include="NinZaHAMAMonster_NT8.cs" />
+    <Compile Include="NinZaHeikenAshiMFIBlend_NT8.cs" />
+    <Compile Include="NinZaHeikenAshiRSIBlend_NT8.cs" />
+    <Compile Include="NinZaHeikenAshiSmartDelta_NT8.cs" />
+    <Compile Include="NinZaHeikenAshiSmoothed_NT8.cs" />
+    <Compile Include="NinZaHeikenAshiStochasticBlend_NT8.cs" />
+    <Compile Include="NinZaHiLoView_NT8.cs" />
+    <Compile Include="NinZaInnovativeOrdering_NT8.cs" />
+    <Compile Include="NinZaInsideBarPro_NT8.cs" />
+    <Compile Include="NinZaIntradayAdaptiveSR_NT8.cs" />
+    <Compile Include="NinZaIntradayRWAPPro_NT8.cs" />
+    <Compile Include="NinZaIntradayVWAPPro_NT8.cs" />
+    <Compile Include="NinZaiTrendPro_NT8.cs" />
+    <Compile Include="NinZaLastweekCriticalSR_NT8.cs" />
+    <Compile Include="NinZaMACrossover_NT8.cs" />
+    <Compile Include="NinZaMagicalTMABands_NT8.cs" />
+    <Compile Include="NinZaMAHowfar_NT8.cs" />
+    <Compile Include="NinZaMarketExtremes_NT8.cs" />
+    <Compile Include="NinZaMarketProfileComposite_NT8.cs" />
+    <Compile Include="NinZaMarketProfileDaily_NT8.cs" />
+    <Compile Include="NinZaMarketProfileFlexible_NT8.cs" />
+    <Compile Include="NinZaMarketSpeed_NT8.cs" />
+    <Compile Include="NinZaMarketWatch_NT8.cs" />
+    <Compile Include="NinZaMASlopeTrendFilter_NT8.cs" />
+    <Compile Include="NinZaMomentumPro_NT8.cs" />
+    <Compile Include="NinZaMovingMedianPro_NT8.cs" />
+    <Compile Include="NinZaMultiOscOBOSOverlap_NT8.cs" />
+    <Compile Include="NinZaMurreyMathOscillatorPro_NT8.cs" />
+    <Compile Include="NinZaNonlagMABands_NT8.cs" />
+    <Compile Include="NinZaNonlagMAPro_NT8.cs" />
+    <Compile Include="NinZaOrderFlowPresentation_NT8.cs" />
+    <Compile Include="NinZaOutsideBarPro_NT8.cs" />
+    <Compile Include="NinZaPeriodSequenceMagik_NT8.cs" />
+    <Compile Include="NinZaPhoenixSqueeze_NT8.cs" />
+    <Compile Include="NinZaPinocchioBarPro_NT8.cs" />
+    <Compile Include="NinZaPrevdayCriticalSR_NT8.cs" />
+    <Compile Include="NinZaQQEPro_NT8.cs" />
+    <Compile Include="NinZaRegularizedEMAPro_NT8.cs" />
+    <Compile Include="NinZaRenkoStyleTrend_NT8.cs" />
+    <Compile Include="NinZaRenko_NT8.cs" />
+    <Compile Include="NinZaRiskRewardMeter_NT8.cs" />
+    <Compile Include="NinZaRoundNumber_NT8.cs" />
+    <Compile Include="NinZaRubyRiver_NT8.cs" />
+    <Compile Include="NinZaSidewayzMA_NT8.cs" />
+    <Compile Include="NinZaSidewayzRT_NT8.cs" />
+    <Compile Include="NinZaSidewayzZP_NT8.cs" />
+    <Compile Include="NinZaSineWMAPro_NT8.cs" />
+    <Compile Include="NinZaSmartDataBox_NT8.cs" />
+    <Compile Include="NinZaSmartFlattening_NT8.cs" />
+    <Compile Include="NinZaSmartOCOAssistant_NT8.cs" />
+    <Compile Include="NinZaSmartRuler_NT8.cs" />
+    <Compile Include="NinZaSmartZoom_NT8.cs" />
+    <Compile Include="NinZaSolarWind_NT8.cs" />
+    <Compile Include="NinZaSpeedupZlert_NT8.cs" />
+    <Compile Include="NinZaStepMAPro_NT8.cs" />
+    <Compile Include="NinZaStochRSIPro_NT8.cs" />
+    <Compile Include="NinZaSuperfastOneClick_NT8.cs" />
+    <Compile Include="NinZaSuperiorADXDMI_NT8.cs" />
+    <Compile Include="NinZaSuperiorAwesome_NT8.cs" />
+    <Compile Include="NinZaSuperiorBollinger_NT8.cs" />
+    <Compile Include="NinZaSuperiorDonchian_NT8.cs" />
+    <Compile Include="NinZaSuperiorIchimoku_NT8.cs" />
+    <Compile Include="NinZaSuperiorKeltner_NT8.cs" />
+    <Compile Include="NinZaSuperiorMACD_NT8.cs" />
+    <Compile Include="NinZaSuperiorMFI_NT8.cs" />
+    <Compile Include="NinZaSuperiorRSI_NT8.cs" />
+    <Compile Include="NinZaSuperiorStochastic_NT8.cs" />
+    <Compile Include="NinZaSuperiorVolume_NT8.cs" />
+    <Compile Include="NinZaSuperTrendPro_NT8.cs" />
+    <Compile Include="NinZaSupplyDemandDiscovery_NT8.cs" />
+    <Compile Include="NinZaSupportResistanceRadar_NT8.cs" />
+    <Compile Include="NinZaT3Pro_NT8.cs" />
+    <Compile Include="NinZaTDIPro_NT8.cs" />
+    <Compile Include="NinZaTotalAlert_NT8.cs" />
+    <Compile Include="NinZaTradingTimePro_NT8.cs" />
+    <Compile Include="NinZaTrendMagicPro_NT8.cs" />
+    <Compile Include="NinZaTrioReversal_NT8.cs" />
+    <Compile Include="NinZaTripleRangeRover_NT8.cs" />
+    <Compile Include="NinZaTStop_NT8.cs" />
+    <Compile Include="NinZaUniPivot_NT8.cs" />
+    <Compile Include="NinZaVIDYAPro_NT8.cs" />
+    <Compile Include="NinZaVoluCandlez_NT8.cs" />
+    <Compile Include="NinZaVolumeDelta_NT8.cs" />
+    <Compile Include="NinZaWaddahAttarExplosionPro_NT8.cs" />
+    <Compile Include="NinZaWoodieZLRPro_NT8.cs" />
+    <Compile Include="NinZaWWaveVolumePro_NT8.cs" />
+    <Compile Include="NinZaXDayCriticalSR_NT8.cs" />
+    <Compile Include="NinZaXDayRollingPivot_NT8.cs" />
+    <Compile Include="RenkoKings_RevOutScalping_NT8.cs" />
+    <Compile Include="RenkoKings_SolarWindRK_NT8.cs" />
+    <Compile Include="RenkoKings_SumoPullback_NT8.cs" />
+    <Compile Include="RenkoKings_ZoneGPTFromTheFuture_NT8.cs" />
+    <Compile Include="AplusGannHighLow_1.9.cs" />
+    <Compile Include="FisherTransformMOD_1.7.1.cs" />
+    <Compile Include="APlusNetChangeBundle_1.7.cs" />
+    <Compile Include="APlusTripleFocus_1.4.cs" />
+    <Compile Include="APlus_108_1.4.1.cs" />
+    <Compile Include="APlus_BottomPicker_1.5.6.cs" />
+    <Compile Include="APlus_BP_Panel_1.3.1.cs" />
+    <Compile Include="APlus_CentreLine_2.5.cs" />
+    <Compile Include="APlus_Jiggle_2.7.cs" />
+    <Compile Include="APlus_ReverseMullet_1.9.8.cs" />
+    <Compile Include="A_PlusPOC_2.4.1.cs" />
+    <Compile Include="S007Levels_1.7.cs" />
+    <Compile Include="APlusThePocket_1.6.cs" />
+    <Compile Include="Moneyball_1_2_Vendor.cs" />
+    <Compile Include="QbankIndicator_1_0_2_Vendor.cs" />
+    <Compile Include="Qcloud_1_3_Vendor.cs" />
+    <Compile Include="Qdirector_1_2_Vendor.cs" />
+    <Compile Include="QgridBankStrat.cs" />
+    <Compile Include="QgridEliteStrat.cs" />
+    <Compile Include="QgridLeonStrat_1_0_1_Vendor.cs" />
+    <Compile Include="QgridStrat_1_3_Vendor.cs" />
+    <Compile Include="Qgrid_1_3_Vendor.cs" />
+    <Compile Include="QKronos.cs" />
+    <Compile Include="Qmomentum_1_5_Vendor.cs" />
+    <Compile Include="QPilotPro.cs" />
+    <Compile Include="QRenko_1_1_Vendor.cs" />
+    <Compile Include="QstepMAIndicator_1_0_Vendor.cs" />
+    <Compile Include="QTimeRenko.cs" />
+    <Compile Include="QuantVueConnector.cs" />
+    <Compile Include="Qwave_1_5_Vendor.cs" />
+    <Compile Include="NinZaEOBExit_NT8.cs" />
+    <Compile Include="RenkoKings_NobleCloud_NT8.cs" />
+    <Compile Include="NinZaSuperJumpBoost_NT8.cs" />
+    <Compile Include="NinZaRomantickPulse_NT8.cs" />
+    <Compile Include="NinZaGravityOrbitX_NT8.cs" />
+    <Compile Include="NinZaQuantumVolDelta_NT8.cs" />
+    <Compile Include="Indicators\whiskysTPSLAdjuster.cs" />
+    <Compile Include="RenkoKings_KingOrderBlock_NT8.cs" />
+    <Compile Include="NinZaATR_NT8.cs" />
+    <Compile Include="NinZaHelperMFI_NT8.cs" />
+    <Compile Include="NinZaHelperRSI_NT8.cs" />
+    <Compile Include="NinZaHelperSMMA_NT8.cs" />
+    <Compile Include="NinZaHelperStochastic_NT8.cs" />
+    <Compile Include="NinZaResources_NT8.cs" />
+    <Compile Include="RenkoKings_ThunderZilla_NT8.cs" />
+    <Compile Include="NinZaBossOrderBlock_NT8.cs" />
+    <Compile Include="Indicators\GreyBeard\gbBarStatus.cs" />
+    <Compile Include="Indicators\GreyBeard\gbKingOrderBlock.cs" />
+    <Compile Include="Indicators\GreyBeard\gbPANAKanal.cs" />
+    <Compile Include="Indicators\GreyBeard\gbThunderZilla.cs" />
+    <Compile Include="Strategies\EMA.cs" />
+    <Compile Include="Indicators\GreyBeard\gbKingPanaZilla.cs" />
+    <Compile Include="Indicators\Playr101\NewsSignals.cs" />
+    <Compile Include="Strategies\Playr101\gbKingPanaZillaKillah.cs" />
+    <Compile Include="Indicators\HMAHooks.cs" />
+    <Compile Include="NinZaBollingerPercentB_NT8.cs" />
+    <Compile Include="Indicators\BollingerPercentBSmoothed.cs" />
+    <Compile Include="NinZaBollingerPercentBPro_NT8.cs" />
+    <Compile Include="PredatorXOrderEntryLT_V3.8.1.5.cs" />
+    <Compile Include="Indicators\BollingerKeltnerSignal.cs" />
+    <Compile Include="Strategies\ninZaBollingerSuperTrend.cs" />
+    <Compile Include="NinZaPANAKanal_NT8.cs" />
+    <Compile Include="Indicators\BollingerBandsCustom.cs" />
+    <Compile Include="Indicators\HAOverlay.cs" />
+    <Compile Include="HelloWin_CaptainOptimusStrong_NT8.cs" />
+    <Compile Include="HelloWin_InfinityAlgoEngine_NT8.cs" />
+    <Compile Include="KingRenko_NT8.cs" />
+    <Compile Include="Indicators\ninZaBollingerSuperTrendIndicator.cs" />
+    <Compile Include="Indicators\AlgoEngine.cs" />
+    <Compile Include="Indicators\IndicatorDashboard.cs" />
+    <Compile Include="Indicators\IndicatorDashboardOverlay.cs" />
+    <Compile Include="Indicators\AlgoEngineShell.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>NinjaTrader.Custom</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.ru-RU.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.fr-FR.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.de-DE.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.pt-PT.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.es-ES.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.zh-Hans.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.it-IT.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.ko-KR.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="obj\**" />
+    <Page Remove="obj\**" />
+  </ItemGroup>
+</Project>
