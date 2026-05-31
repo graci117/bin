@@ -1002,108 +1002,80 @@ namespace NinjaTrader.NinjaScript.Indicators
 
        private void EvaluateSets()
 		{
-		    if (CurrentBar < 0)
-		        return;
-		
 		    int setIdx = 0;
-		
 		    foreach (var set in _sets)
 		    {
-		        if (!set.IsEnabled)
-		        {
-		            setIdx++;
-		            continue;
-		        }
+		        if (!set.IsEnabled) { setIdx++; continue; }
 		
-		        bool hitOk = set.HitBarConditions.Count == 0
+		        // ── Hit Bar conditions ──────────────────────────────────────
+		        // Exit Long / Exit Short sets skip hit bar evaluation entirely
+		        bool isExitAction = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
+		
+		        bool hitOk = isExitAction
+		            || set.HitBarConditions.Count == 0
 		            || set.HitBarConditions.All(c => EvalCondition(c));
 		
 		        if (CurrentBar < 3)
-		            Print("AE EvalSets | bar=" + CurrentBar
-		                + " | set=" + set.Name
-		                + " | hitConds=" + set.HitBarConditions.Count
-		                + " | hitOk=" + hitOk);
+		            Print($"AE EvalSets bar={CurrentBar} set={set.Name} hitConds={set.HitBarConditions.Count} hitOk={hitOk}");
 		
-		        if (hitOk && CurrentBar > 0)
+		        // Draw hit bar highlight (skip for exit actions)
+		        if (hitOk && CurrentBar > 0 && !isExitAction)
 		        {
-		            var hitColor = (HitBarHighlightColor as SolidColorBrush)?.Color ?? Colors.Violet;
-		            byte alpha = (byte)(HitBarHighlightOpacity * 255 / 100);
-		            var colBrush = new SolidColorBrush(Color.FromArgb(alpha, hitColor.R, hitColor.G, hitColor.B));
-		            string hitTag = "HitCol_" + setIdx + "_" + CurrentBar;
-		
+		            var hitColor  = (HitBarHighlightColor as SolidColorBrush)?.Color ?? Colors.Violet;
+		            byte alpha    = (byte)(HitBarHighlightOpacity * 255 / 100);
+		            var  colBrush = new SolidColorBrush(Color.FromArgb(alpha, hitColor.R, hitColor.G, hitColor.B));
+		            string hitTag = "HitCol" + setIdx + "_" + CurrentBar;
 		            double colHigh = 1e10;
-		            double colLow = -1e10;
-		
-		            Draw.Rectangle(this, hitTag, false,
-		                1, colHigh,
-		                0, colLow,
+		            double colLow  = -1e10;
+		            Draw.Rectangle(this, hitTag, false, 1, colHigh, 0, colLow,
 		                Brushes.Transparent, colBrush, (int)HitBarHighlightOpacity);
 		        }
 		
-		        if (!hitOk)
-		        {
-		            setIdx++;
-		            continue;
-		        }
+		        if (!hitOk) { setIdx++; continue; }
 		
+		        // ── Signal Bar conditions ───────────────────────────────────
 		        bool sigOk = set.SignalBarConditions.Count == 0
-		            || set.SignalBarConditions.All(c => EvalCondition(c));
+		                  || set.SignalBarConditions.All(c => EvalCondition(c));
 		
-		        if (!sigOk)
+		        if (!sigOk) { setIdx++; continue; }
+		
+		        // ── Actions ─────────────────────────────────────────────────
+		
+		        // Buy / Long — requires longOn
+		        if (_longOn && (set.EntryAction == "Buy" || set.EntryAction == "Long"))
 		        {
-		            setIdx++;
-		            continue;
-		        }
-		
-		        bool wantsLong = _longOn && (set.EntryAction == "Buy" || set.EntryAction == "Long");
-		        bool wantsShort = _shortOn && (set.EntryAction == "Sell" || set.EntryAction == "Short");
-		
-		        if (!wantsLong && !wantsShort)
-		        {
-		            setIdx++;
-		            continue;
-		        }
-		
-		        if (wantsLong)
-		        {
-		            if (!CanSubmitOrder("LONG"))
-		            {
-		                setIdx++;
-		                continue;
-		            }
-		
-		            MarkOrderSubmitted("LONG");
 		            LastLongSignalBar = CurrentBar;
-		
 		            if (AlertMarkerEnabled)
-		                Draw.ArrowUp(this, "LongSig_" + CurrentBar, false,
-		                    0, Low[0] - 2 * TickSize, MarkerColorBullish);
-		
-		            Print("AlgoEngine LONG | " + set.Name + " | " + Time[0] + " | bar=" + CurrentBar);
-		
-		             PlaceAtmEntry(set, true);
-		            return;
+		                Draw.ArrowUp(this, "LongSig" + CurrentBar, false, 0,
+		                    Low[0] - 2 * TickSize, MarkerColorBullish);
+		            Print("AlgoEngine LONG " + set.Name + " " + Time[0]);
 		        }
-		
-		        if (wantsShort)
+		        // Sell / Short — requires shortOn
+		        else if (_shortOn && (set.EntryAction == "Sell" || set.EntryAction == "Short"))
 		        {
-		            if (!CanSubmitOrder("SHORT"))
-		            {
-		                setIdx++;
-		                continue;
-		            }
-		
-		            MarkOrderSubmitted("SHORT");
 		            LastShortSignalBar = CurrentBar;
-		
 		            if (AlertMarkerEnabled)
-		                Draw.ArrowDown(this, "ShortSig_" + CurrentBar, false,
-		                    0, High[0] + 2 * TickSize, MarkerColorBearish);
-		
-		            Print("AlgoEngine SHORT | " + set.Name + " | " + Time[0] + " | bar=" + CurrentBar);
-		
-		             PlaceAtmEntry(set, false);
-		            return;
+		                Draw.ArrowDown(this, "ShortSig" + CurrentBar, false, 0,
+		                    High[0] + 2 * TickSize, MarkerColorBearish);
+		            Print("AlgoEngine SHORT " + set.Name + " " + Time[0]);
+		        }
+		        // Exit Long — flatten long position, no longOn/shortOn required
+		        else if (set.EntryAction == "Exit Long")
+		        {
+		            FlattenPosition(true);
+		            if (AlertMarkerEnabled)
+		                Draw.ArrowDown(this, "ExitLongSig" + CurrentBar, false, 0,
+		                    High[0] + 2 * TickSize, Brushes.Yellow);
+		            Print("AlgoEngine EXIT LONG " + set.Name + " " + Time[0]);
+		        }
+		        // Exit Short — flatten short position, no longOn/shortOn required
+		        else if (set.EntryAction == "Exit Short")
+		        {
+		            FlattenPosition(false);
+		            if (AlertMarkerEnabled)
+		                Draw.ArrowUp(this, "ExitShortSig" + CurrentBar, false, 0,
+		                    Low[0] - 2 * TickSize, Brushes.Yellow);
+		            Print("AlgoEngine EXIT SHORT " + set.Name + " " + Time[0]);
 		        }
 		
 		        setIdx++;
@@ -1125,6 +1097,50 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        Print("AE ResolveSelectedAccount error: " + ex.Message);
 		    }
 		    return null;
+		}
+		
+		private void FlattenPosition(bool exitingLong)
+		{
+		    try
+		    {
+		        var account = NinjaTrader.Cbi.Account.All
+		            .FirstOrDefault(a => a.Connection != null &&
+		                a.Connection.Status == NinjaTrader.Cbi.ConnectionStatus.Connected);
+		
+		        if (account == null)
+		        {
+		            Print("AE FlattenPosition — no connected account found");
+		            return;
+		        }
+		
+		        Position position = account.Positions
+		            .FirstOrDefault(p => p.Instrument == Instrument);
+		
+		        if (position == null || position.MarketPosition == MarketPosition.Flat)
+		        {
+		            Print("AE FlattenPosition — no open position to exit");
+		            return;
+		        }
+		
+		        // Only exit if position direction matches the action
+		        if (exitingLong && position.MarketPosition != MarketPosition.Long)
+		        {
+		            Print("AE FlattenPosition — no long position to exit");
+		            return;
+		        }
+		        if (!exitingLong && position.MarketPosition != MarketPosition.Short)
+		        {
+		            Print("AE FlattenPosition — no short position to exit");
+		            return;
+		        }
+		
+		        account.Flatten(new[] { Instrument });
+		        Print("AE FlattenPosition — flattened " + (exitingLong ? "LONG" : "SHORT"));
+		    }
+		    catch (Exception ex)
+		    {
+		        Print("AE FlattenPosition error: " + ex.Message);
+		    }
 		}
 		
 		private int ResolveOrderQuantity(ConditionSet set)
@@ -2096,118 +2112,189 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        _setTabs.SelectedIndex = (prevSel >= 0 && prevSel < _sets.Count) ? prevSel : 0;
 		}
 
-        private UIElement BuildSetPanel(int idx)
-        {
-            var set   = _sets[idx];
-            var panel = new StackPanel { Background = new SolidColorBrush(Color.FromArgb(255, 28, 28, 28)) };
-
-            // Enabled row
-            var enableRow = new DockPanel { Margin = new Thickness(6, 6, 6, 4), LastChildFill = false };
-            var chk = new CheckBox
-            {
-                IsChecked = set.IsEnabled,
-                Content   = new TextBlock { Text = "Set enabled", Foreground = Brushes.White, FontSize = 12 },
-                Foreground = Brushes.White
-            };
-            chk.Checked   += (s, e) => set.IsEnabled = true;
-            chk.Unchecked += (s, e) => set.IsEnabled = false;
-            DockPanel.SetDock(chk, Dock.Left);
-
-            var links = new StackPanel { Orientation = Orientation.Horizontal };
-            
-			
-			var btnReverseSet = MakeLinkBtn("Reverse Set");
-			btnReverseSet.Click += (s, e) =>
-			{
-			    foreach (var c in set.HitBarConditions)
-			        c.Operator = ReverseOperator(c.Operator);
-			
-			    foreach (var c in set.SignalBarConditions)
-			        c.Operator = ReverseOperator(c.Operator);
-			
-			    if (set.EntryAction == "Buy" || set.EntryAction == "Long")
-			        set.EntryAction = "Sell";
-			    else if (set.EntryAction == "Sell" || set.EntryAction == "Short")
-			        set.EntryAction = "Buy";
-			
-			    int sel = _setTabs != null ? _setTabs.SelectedIndex : 0;
-			    RebuildSetTabs();
-			    if (_setTabs != null) _setTabs.SelectedIndex = sel;
-			};
-			links.Children.Add(btnReverseSet);
-			
-			
-            links.Children.Add(MakeLinkBtn("Apply to all sets"));
-            links.Children.Add(MakeLinkBtn("Presets"));
-            DockPanel.SetDock(links, Dock.Right);
-            enableRow.Children.Add(links);
-            enableRow.Children.Add(chk);
-            panel.Children.Add(enableRow);
-            panel.Children.Add(MakeSep());
-
-            panel.Children.Add(BuildCondSection("Hit Bar conditions",    set.HitBarConditions,    false, idx));
-            panel.Children.Add(MakeSep());
-            panel.Children.Add(BuildCondSection("Signal Bar conditions", set.SignalBarConditions, true,  idx));
-            panel.Children.Add(MakeSep());
-
-            // Entry / Exit
-            var eeRow = new Grid { Margin = new Thickness(6, 4, 6, 6) };
-            eeRow.ColumnDefinitions.Add(new ColumnDefinition());
-            eeRow.ColumnDefinitions.Add(new ColumnDefinition());
-
-            var entryPanel = new StackPanel { Margin = new Thickness(0, 0, 8, 0) };
-            entryPanel.Children.Add(new TextBlock { Text = "Entry", Foreground = Brushes.White, FontWeight = FontWeights.SemiBold, FontSize = 11 });
-            entryPanel.Children.Add(new TextBlock { Text = "Action", Foreground = new SolidColorBrush(Color.FromArgb(255,150,150,150)), FontSize = 10 });
-            var actionCb = MakeDarkCombo(new[] { "None", "Buy", "Sell" }, 140);
-            int ai = new[] { "None","Buy","Sell" }.ToList().IndexOf(set.EntryAction);
-            actionCb.SelectedIndex = ai >= 0 ? ai : 0;
-            actionCb.SelectionChanged += (s, e) => { if (actionCb.SelectedItem != null) set.EntryAction = actionCb.SelectedItem.ToString(); };
-            entryPanel.Children.Add(actionCb);
-            Grid.SetColumn(entryPanel, 0);
-
-            var exitPanel = new StackPanel();
-            exitPanel.Children.Add(new TextBlock { Text = "Exit", Foreground = Brushes.White, FontWeight = FontWeights.SemiBold, FontSize = 11 });
-            exitPanel.Children.Add(new TextBlock { Text = "ATM Strategy", Foreground = new SolidColorBrush(Color.FromArgb(255,150,150,150)), FontSize = 10 });
-            // Load ATM strategy names from NT8
-            // NT8 8.x stores them in: Documents\NinjaTrader 8\Templates\AtmStrategy\
-            var atmNames = new System.Collections.Generic.List<string> { "None" };
-            try
-            {
-                string ud = NinjaTrader.Core.Globals.UserDataDir;
-                string[] candidateDirs = new[]
-                {
-                    System.IO.Path.Combine(ud, "templates", "AtmStrategy"),
-                    System.IO.Path.Combine(ud, "Templates", "AtmStrategy"),
-                    System.IO.Path.Combine(ud, "AtmStrategy"),
-                };
-                foreach (var atmDir in candidateDirs)
-                {
-                    if (!System.IO.Directory.Exists(atmDir)) continue;
-                    foreach (var f in System.IO.Directory.GetFiles(atmDir, "*.xml"))
-                        atmNames.Add(System.IO.Path.GetFileNameWithoutExtension(f));
-                    if (atmNames.Count > 1) break;
-                }
-                // Debug: print path used
-                Print("AlgoEngine ATM dir: " + NinjaTrader.Core.Globals.UserDataDir + " | found: " + (atmNames.Count - 1));
-            }
-            catch (Exception ex) { Print("AlgoEngine ATM load error: " + ex.Message); }
-            var atmCb = MakeDarkCombo(atmNames.ToArray(), 160);
-            int atmIdx = atmNames.IndexOf(set.AtmStrategy);
-            atmCb.SelectedIndex = atmIdx >= 0 ? atmIdx : 0;
-            atmCb.SelectionChanged += (s, e) => {
-                if (atmCb.SelectedItem != null) set.AtmStrategy = atmCb.SelectedItem.ToString();
-            };
-            exitPanel.Children.Add(atmCb);
-            Grid.SetColumn(exitPanel, 1);
-
-            eeRow.Children.Add(entryPanel);
-            eeRow.Children.Add(exitPanel);
-            panel.Children.Add(eeRow);
-			
-			
-            return panel;
-        }
-
+       
+		private UIElement BuildSetPanel(int idx)
+		{
+		    var set   = _sets[idx];
+		    var panel = new StackPanel { Background = new SolidColorBrush(Color.FromArgb(255, 28, 28, 28)) };
+		
+		    // ── Enabled row ──────────────────────────────────────────────
+		    var enableRow = new DockPanel { Margin = new Thickness(6, 6, 6, 4), LastChildFill = false };
+		    var chk = new CheckBox
+		    {
+		        IsChecked  = set.IsEnabled,
+		        Content    = new TextBlock { Text = "Set enabled", Foreground = Brushes.White, FontSize = 12 },
+		        Foreground = Brushes.White
+		    };
+		    chk.Checked   += (s, e) => set.IsEnabled = true;
+		    chk.Unchecked += (s, e) => set.IsEnabled = false;
+		    DockPanel.SetDock(chk, Dock.Left);
+		
+		    var links = new StackPanel { Orientation = Orientation.Horizontal };
+		
+		    var btnReverseSet = MakeLinkBtn("Reverse Set");
+		    btnReverseSet.Click += (s, e) =>
+		    {
+		        foreach (var c in set.HitBarConditions)
+		            c.Operator = ReverseOperator(c.Operator);
+		        foreach (var c in set.SignalBarConditions)
+		            c.Operator = ReverseOperator(c.Operator);
+		
+		        if (set.EntryAction == "Buy" || set.EntryAction == "Long")
+		            set.EntryAction = "Sell";
+		        else if (set.EntryAction == "Sell" || set.EntryAction == "Short")
+		            set.EntryAction = "Buy";
+		        // Exit Long / Exit Short are not reversed
+		
+		        int sel = _setTabs != null ? _setTabs.SelectedIndex : 0;
+		        RebuildSetTabs();
+		        if (_setTabs != null) _setTabs.SelectedIndex = sel;
+		    };
+		    links.Children.Add(btnReverseSet);
+		    links.Children.Add(MakeLinkBtn("Apply to all sets"));
+		    links.Children.Add(MakeLinkBtn("Presets"));
+		    DockPanel.SetDock(links, Dock.Right);
+		    enableRow.Children.Add(links);
+		    enableRow.Children.Add(chk);
+		    panel.Children.Add(enableRow);
+		    panel.Children.Add(MakeSep());
+		
+		    // ── Determine if this is an exit action ──────────────────────
+		    bool isExitAction = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
+		
+		    // ── Hit Bar section — hidden for exit actions ─────────────────
+		    var hitSection = new StackPanel();
+		    if (isExitAction)
+		    {
+		        hitSection.Children.Add(new Border
+		        {
+		            Background = new SolidColorBrush(Color.FromArgb(255, 38, 38, 38)),
+		            Padding    = new Thickness(8, 6, 8, 6),
+		            Child      = new TextBlock
+		            {
+		                Text       = "↳ Hit Bar conditions not used for Exit actions",
+		                Foreground = new SolidColorBrush(Color.FromArgb(255, 120, 120, 120)),
+		                FontSize   = 11,
+		                FontStyle  = FontStyles.Italic
+		            }
+		        });
+		    }
+		    else
+		    {
+		        hitSection.Children.Add(BuildCondSection("Hit Bar conditions", set.HitBarConditions, false, idx));
+		    }
+		    panel.Children.Add(hitSection);
+		    panel.Children.Add(MakeSep());
+		
+		    // ── Signal Bar section — always shown ─────────────────────────
+		    panel.Children.Add(BuildCondSection("Signal Bar conditions", set.SignalBarConditions, true, idx));
+		    panel.Children.Add(MakeSep());
+		
+		    // ── Entry / Exit row ─────────────────────────────────────────
+		    var eeRow = new Grid { Margin = new Thickness(6, 4, 6, 6) };
+		    eeRow.ColumnDefinitions.Add(new ColumnDefinition());
+		    eeRow.ColumnDefinitions.Add(new ColumnDefinition());
+		
+		    // Action combo
+		    var entryPanel = new StackPanel { Margin = new Thickness(0, 0, 8, 0) };
+		    entryPanel.Children.Add(new TextBlock
+		    {
+		        Text       = "Entry / Exit",
+		        Foreground = Brushes.White,
+		        FontWeight = FontWeights.SemiBold,
+		        FontSize   = 11
+		    });
+		    entryPanel.Children.Add(new TextBlock
+		    {
+		        Text       = "Action",
+		        Foreground = new SolidColorBrush(Color.FromArgb(255, 150, 150, 150)),
+		        FontSize   = 10
+		    });
+		
+		    var actionCb = MakeDarkCombo(new[] { "None", "Buy", "Sell", "Exit Long", "Exit Short" }, 140);
+		    int ai = new[] { "None", "Buy", "Sell", "Exit Long", "Exit Short" }.ToList().IndexOf(set.EntryAction);
+		    actionCb.SelectedIndex = ai >= 0 ? ai : 0;
+		
+		    // Rebuild panel when action type changes so hit bar / ATM sections update
+		    actionCb.SelectionChanged += (s, e) =>
+		    {
+		        if (actionCb.SelectedItem == null) return;
+		        set.EntryAction = actionCb.SelectedItem.ToString();
+		        int sel = _setTabs != null ? _setTabs.SelectedIndex : idx;
+		        RebuildSetTabs();
+		        if (_setTabs != null) _setTabs.SelectedIndex = sel;
+		    };
+		    entryPanel.Children.Add(actionCb);
+		    Grid.SetColumn(entryPanel, 0);
+		
+		    // ATM Strategy combo — hidden for exit actions
+		    var exitPanel = new StackPanel();
+		    exitPanel.Children.Add(new TextBlock
+		    {
+		        Text       = "Exit",
+		        Foreground = Brushes.White,
+		        FontWeight = FontWeights.SemiBold,
+		        FontSize   = 11
+		    });
+		
+		    if (isExitAction)
+		    {
+		        exitPanel.Children.Add(new TextBlock
+		        {
+		            Text       = "Flattens position via account",
+		            Foreground = new SolidColorBrush(Color.FromArgb(255, 120, 120, 120)),
+		            FontSize   = 10,
+		            FontStyle  = FontStyles.Italic,
+		            Margin     = new Thickness(0, 4, 0, 0)
+		        });
+		    }
+		    else
+		    {
+		        exitPanel.Children.Add(new TextBlock
+		        {
+		            Text       = "ATM Strategy",
+		            Foreground = new SolidColorBrush(Color.FromArgb(255, 150, 150, 150)),
+		            FontSize   = 10
+		        });
+		
+		        var atmNames = new System.Collections.Generic.List<string> { "None" };
+		        try
+		        {
+		            string ud = NinjaTrader.Core.Globals.UserDataDir;
+		            string[] candidateDirs =
+		            {
+		                System.IO.Path.Combine(ud, "templates", "AtmStrategy"),
+		                System.IO.Path.Combine(ud, "Templates",  "AtmStrategy"),
+		                System.IO.Path.Combine(ud, "AtmStrategy"),
+		            };
+		            foreach (var atmDir in candidateDirs)
+		            {
+		                if (!System.IO.Directory.Exists(atmDir)) continue;
+		                foreach (var f in System.IO.Directory.GetFiles(atmDir, "*.xml"))
+		                    atmNames.Add(System.IO.Path.GetFileNameWithoutExtension(f));
+		                if (atmNames.Count > 1) break;
+		            }
+		        }
+		        catch (Exception ex) { Print("AlgoEngine ATM load error: " + ex.Message); }
+		
+		        var atmCb    = MakeDarkCombo(atmNames.ToArray(), 160);
+		        int atmIdx   = atmNames.IndexOf(set.AtmStrategy);
+		        atmCb.SelectedIndex = atmIdx >= 0 ? atmIdx : 0;
+		        atmCb.SelectionChanged += (s, e) =>
+		        {
+		            if (atmCb.SelectedItem != null) set.AtmStrategy = atmCb.SelectedItem.ToString();
+		        };
+		        exitPanel.Children.Add(atmCb);
+		    }
+		
+		    Grid.SetColumn(exitPanel, 1);
+		    eeRow.Children.Add(entryPanel);
+		    eeRow.Children.Add(exitPanel);
+		    panel.Children.Add(eeRow);
+		
+		    return panel;
+		}
+		
         private UIElement BuildCondSection(string title, List<ConditionItem> conditions, bool showBarFields, int setIdx)
 		{
 		    var section = new StackPanel();
