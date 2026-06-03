@@ -105,6 +105,8 @@ namespace NinjaTrader.NinjaScript.Indicators
                 {
                     // Skip ourselves to avoid infinite loops
                     if (ns == this) continue;
+					Print("AE Registry: Found indicator name='" + ns.Name + "' plots=" + 
+                  (ns.Plots != null ? ns.Plots.Length : 0));
 
                     string indName = ns.Name;
 

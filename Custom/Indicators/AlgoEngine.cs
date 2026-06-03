@@ -168,128 +168,165 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		private double _dailyPnl        = 0.0;
 		private DateTime _lastPnlDate   = DateTime.MinValue;
+		
+		private string _activeEntryTag    = string.Empty;
+		private NinjaTrader.Cbi.Account _activeAccount = null;
+		private int _activeQty = 0;
+		private NinjaTrader.Cbi.Account _selectedAccount = null;
+		
+			private NinjaTrader.Cbi.Order _activeEntryOrder = null;
+		private DateTime              _entrySubmitTime  = DateTime.MinValue;
+		bool _executionSubscribed = false;
+		private bool _widgetBuilt = false;
 
         // ════════════════════════════════════════════════════════════
         //  LIFECYCLE
         // ════════════════════════════════════════════════════════════
 
-        protected override void OnStateChange()
-        {
-            if (State == State.SetDefaults)
-            {
-                Description              = "AlgoEngine — Condition Builder";
-                Name                     = "AlgoEngine";
-                Calculate                = Calculate.OnBarClose;
-                IsOverlay                = true;
-                DisplayInDataBox         = false;
-                DrawOnPricePanel         = true;
-                IsSuspendedWhileInactive = true;
-
-               
-                WaitUntilFlat    = true;
-                EntryCooldown    = 100;
-                EnableMoneyMgmt  = false;
-                MaxDailyProfit   = 1500;
-                MaxDailyLoss     = 800;
-                HitBarHighlight        = true;
-                HitBarHighlightColor   = Brushes.Violet;
-                HitBarHighlightOpacity = 50;
-                BtnLongActiveColor     = Brushes.DodgerBlue;
-                BtnLongInactiveColor   = Brushes.LightSkyBlue;
-                BtnShortActiveColor    = Brushes.HotPink;
-                BtnShortInactiveColor  = Brushes.Thistle;
-                DragBarColor           = Brushes.LimeGreen;
-                TitleTextColor         = Brushes.White;
-                WinLeft                = 100;
-                WinTop                 = 100;
-                AlertPopupEnabled      = false;
-                AlertSoundEnabled      = false;
-                AlertMarkerEnabled     = true;
-                MarkerColorBullish     = Brushes.DodgerBlue;
-                MarkerColorBearish     = Brushes.HotPink;
-				LongEnabledPersist = false;
-				ShortEnabledPersist = false;
-				
-				// Within defaults
-				WithinFilterCount = 1;
-			
-				
-				// Skip defaults
-				SkipFilterCount = 1;
-				
-				
-				// Within defaults
-				WithinStart1 = new TimeSpan(7, 30, 0);    // 07:30:00
-				WithinEnd1   = new TimeSpan(16, 45, 0);   // 04:45 PM
-				WithinStart2 = new TimeSpan(0, 1, 0);     // 12:01 AM
-				WithinEnd2   = new TimeSpan(6, 45, 0);    // 06:45 AM
-				WithinStart3 = new TimeSpan(0, 1, 0);
-				WithinEnd3   = new TimeSpan(6, 45, 0);
-				WithinStart4 = new TimeSpan(8, 0, 0);
-				WithinEnd4   = new TimeSpan(16, 0, 0);
-				
-				// Skip defaults
-				SkipStart1 = new TimeSpan(8, 28, 0);
-				SkipEnd1   = new TimeSpan(8, 32, 0);
-				SkipStart2 = new TimeSpan(15, 58, 0);
-				SkipEnd2   = new TimeSpan(16, 2, 0);
-				SkipStart3 = new TimeSpan(6, 28, 0);
-				SkipEnd3   = new TimeSpan(6, 32, 0);
-				SkipStart4 = new TimeSpan(8, 28, 0);
-				SkipEnd4   = new TimeSpan(8, 32, 0);
-				SkipStart5 = new TimeSpan(8, 28, 0);
-				SkipEnd5   = new TimeSpan(8, 32, 0);
-				SkipStart6 = new TimeSpan(8, 28, 0);
-				SkipEnd6   = new TimeSpan(8, 32, 0);
-            }
-         else if (State == State.DataLoaded)
+     	protected override void OnStateChange()
 		{
-		    // Restore conditions from serialized JSON
-		    _sets.Clear();
-		    if (!string.IsNullOrEmpty(SetsJson))
+		    if (State == State.SetDefaults)
 		    {
-		        try
-		        {
-		            var restored = DeserializeSets(SetsJson);
-		            if (restored != null && restored.Count > 0)
-		                foreach (var s in restored) _sets.Add(s);
-		        }
-		        catch (Exception ex) { Print("AE deserialize error: " + ex.Message); }
+		        Description              = "AlgoEngine — Condition Builder";
+		        Name                     = "AlgoEngine";
+		        Calculate                = Calculate.OnBarClose;
+		        IsOverlay                = true;
+		        DisplayInDataBox         = false;
+		        DrawOnPricePanel         = true;
+		        IsSuspendedWhileInactive = true;
+		
+		        WaitUntilFlat            = true;
+		        EntryCooldown            = 100;
+		        EnableMoneyMgmt          = false;
+		        MaxDailyProfit           = 1500;
+		        MaxDailyLoss             = 800;
+		        HitBarHighlight          = true;
+		        HitBarHighlightColor     = Brushes.Violet;
+		        HitBarHighlightOpacity   = 50;
+		        BtnLongActiveColor       = Brushes.DodgerBlue;
+		        BtnLongInactiveColor     = Brushes.LightSkyBlue;
+		        BtnShortActiveColor      = Brushes.HotPink;
+		        BtnShortInactiveColor    = Brushes.Thistle;
+		        DragBarColor             = Brushes.LimeGreen;
+		        TitleTextColor           = Brushes.White;
+		        WinLeft                  = 100;
+		        WinTop                   = 100;
+		        AlertPopupEnabled        = false;
+		        AlertSoundEnabled        = false;
+		        AlertMarkerEnabled       = true;
+		        MarkerColorBullish       = Brushes.DodgerBlue;
+		        MarkerColorBearish       = Brushes.HotPink;
+		        LongEnabledPersist       = false;
+		        ShortEnabledPersist      = false;
+		
+		        WithinFilterCount = 1;
+		        SkipFilterCount   = 1;
+		
+		        WithinStart1 = new TimeSpan(7, 30, 0);
+		        WithinEnd1   = new TimeSpan(16, 45, 0);
+		        WithinStart2 = new TimeSpan(0, 1, 0);
+		        WithinEnd2   = new TimeSpan(6, 45, 0);
+		        WithinStart3 = new TimeSpan(0, 1, 0);
+		        WithinEnd3   = new TimeSpan(6, 45, 0);
+		        WithinStart4 = new TimeSpan(8, 0, 0);
+		        WithinEnd4   = new TimeSpan(16, 0, 0);
+		
+		        SkipStart1 = new TimeSpan(8, 28, 0);
+		        SkipEnd1   = new TimeSpan(8, 32, 0);
+		        SkipStart2 = new TimeSpan(15, 58, 0);
+		        SkipEnd2   = new TimeSpan(16, 2, 0);
+		        SkipStart3 = new TimeSpan(6, 28, 0);
+		        SkipEnd3   = new TimeSpan(6, 32, 0);
+		        SkipStart4 = new TimeSpan(8, 28, 0);
+		        SkipEnd4   = new TimeSpan(8, 32, 0);
+		        SkipStart5 = new TimeSpan(8, 28, 0);
+		        SkipEnd5   = new TimeSpan(8, 32, 0);
+		        SkipStart6 = new TimeSpan(8, 28, 0);
+		        SkipEnd6   = new TimeSpan(8, 32, 0);
 		    }
-		    if (_sets.Count == 0)
-		        _sets.Add(new ConditionSet { Name = "Set 1" });
-		    BuildIndicatorRegistry();
-			_longOn = LongEnabledPersist;
-			_shortOn = ShortEnabledPersist;
-		    Print("AlgoEngine DataLoaded | sets=" + _sets.Count);
+		    else if (State == State.DataLoaded)
+		    {
+		        // 1. Restore sets
+		        _sets.Clear();
+		        if (!string.IsNullOrEmpty(SetsJson))
+		        {
+		            try
+		            {
+		                var restored = DeserializeSets(SetsJson);
+		                if (restored != null && restored.Count > 0)
+		                    foreach (var s in restored)
+		                        _sets.Add(s);
+		            }
+		            catch (Exception ex) { Print("AE deserialize error: " + ex.Message); }
+		        }
+		
+		        if (_sets.Count == 0)
+		            _sets.Add(new ConditionSet { Name = "Set 1" });
+		
+		        // 2. Restore long/short state
+		        _longOn = LongEnabledPersist;
+		        _shortOn = ShortEnabledPersist;
+		
+		        // 3. Build indicator registry
+		        BuildIndicatorRegistry();
+		
+		        // 4. Subscribe to account ExecutionUpdate
+		        if (ChartControl != null)
+		        {
+		            ChartControl.Dispatcher.InvokeAsync(() =>
+		            {
+		                _selectedAccount = GetSelectedAccount();
+		                if (_selectedAccount != null && !_executionSubscribed)
+		                {
+		                    _selectedAccount.ExecutionUpdate += OnAccountExecutionUpdate;
+		                    _executionSubscribed = true;
+		                    Print("AE: ExecutionUpdate SUBSCRIBED on " + _selectedAccount.Name);
+		                }
+		            });
+		        }
+		
+		        // 5. Rebuild tabs if builder window already open
+		        if (_setTabs != null)
+		        {
+		            ChartControl?.Dispatcher.BeginInvoke(new Action(() =>
+		            {
+		                RebuildSetTabs();
+		            }));
+		        }
+		
+		        Print("AE DataLoaded sets=" + _sets.Count);
+		    }
+		    else if (State == State.Historical)
+		    {
+		        if (ChartControl != null)
+		        {
+		            ChartControl.Dispatcher.InvokeAsync(() =>
+		            {
+		                if (!_widgetBuilt)
+		                {
+		                    BuildCompactWidget();
+		                    _widgetBuilt = true;
+		                }
+		            });
+		        }
+		    }
+		    else if (State == State.Terminated)
+		    {
+		        if (_executionSubscribed && _selectedAccount != null)
+		        {
+		            _selectedAccount.ExecutionUpdate -= OnAccountExecutionUpdate;
+		            _executionSubscribed = false;
+		            Print("AE: Unsubscribed ExecutionUpdate");
+		        }
+		
+		        _selectedAccount = null;
+		        _widgetBuilt     = false;
+		
+		        try { SaveSets(); } catch { }
+		        ResetTradeTracking();
+		        DisposeWindows();
+		    }
 		}
-
-         else if (State == State.Terminated)
-			{
-			    // Always persist current conditions before the indicator is torn down.
-			    // This covers Edit dialog, F5 recompile, and chart close.
-			    try { SaveSets(); } catch { }
-			    DisposeWindows();
-			}
-			else if (State == State.Configure)
-{
-    // Re-hydrate sets as early as possible so they survive Edit→OK cycles
-    // where DataLoaded may not be re-fired.
-    if (_sets.Count == 0 && !string.IsNullOrEmpty(SetsJson))
-    {
-		_longOn = LongEnabledPersist;
-			_shortOn = ShortEnabledPersist;
-        try
-        {
-			
-            var restored = DeserializeSets(SetsJson);
-            if (restored != null && restored.Count > 0)
-                foreach (var s in restored) _sets.Add(s);
-        }
-        catch { }
-    }
-}
-        }
 
         protected override void OnBarUpdate()
         {
@@ -320,14 +357,31 @@ namespace NinjaTrader.NinjaScript.Indicators
 			if (_isDuplicate) return;
 
             // Spawn compact widget once ChartControl is available
-            if (!_panelBuilt && ChartControl != null)
-            {
-                _panelBuilt = true;
-                Print("AlgoEngine spawning widget | ChartControl=" + ChartControl.GetType().Name);
-                ChartControl.Dispatcher.BeginInvoke(
-                    new Action(BuildCompactWidget),
-                    System.Windows.Threading.DispatcherPriority.ApplicationIdle);
-            }
+           
+			 if (!_executionSubscribed || _selectedAccount != GetSelectedAccount())
+			{
+			    ChartControl.Dispatcher.InvokeAsync(() =>
+			    {
+			        var freshAccount = GetSelectedAccount();
+			        if (freshAccount == null) return;
+			        
+			        // Unsubscribe old if changed
+			        if (_selectedAccount != null && _selectedAccount != freshAccount)
+			        {
+			            _selectedAccount.ExecutionUpdate -= OnAccountExecutionUpdate;
+			            _executionSubscribed = false;
+			            Print("AE: Account changed, resubscribing...");
+			        }
+			        
+			        if (!_executionSubscribed)
+			        {
+			            _selectedAccount = freshAccount;
+			            _selectedAccount.ExecutionUpdate += OnAccountExecutionUpdate;
+			            _executionSubscribed = true;
+			            Print("AE: ExecutionUpdate SUBSCRIBED on " + _selectedAccount.Name);
+			        }
+			    });
+			}
 			 HandleWithinFilterExits();
            if (!IsInTimeFilters()) return;
 		   
@@ -352,6 +406,9 @@ namespace NinjaTrader.NinjaScript.Indicators
                 foreach (NinjaScriptBase ns in ChartControl.Indicators)
                 {
                     if (ns == this) continue;
+					string indName = !string.IsNullOrEmpty(ns.Name) 
+                     ? ns.Name 
+                     : ns.GetType().Name;
                     int plotCount = ns.Plots != null ? ns.Plots.Length : 0;
                     for (int p = 0; p < plotCount; p++)
                     {
@@ -372,7 +429,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                         }
                         _registry.Add(new ChartIndicatorPlot
                         {
-                            IndicatorName = ns.Name,
+                            IndicatorName = indName,
                             PlotIndex     = p,
                             ValuesIndex   = vIdx,
                             PlotName      = ns.Plots[p].Name,
@@ -438,7 +495,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		{
 		    try
 		    {
-		        string wanted = string.IsNullOrWhiteSpace(_selectedAccountName) ? "Sim101" : _selectedAccountName;
+		      string wanted    = string.IsNullOrWhiteSpace(_selectedAccountName) ? "Sim101" : _selectedAccountName;
 		
 		        foreach (Account acct in Account.All)
 		        {
@@ -536,20 +593,27 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        return false;
 		    }
 		
-		    Account acct = GetSelectedAccount();
-		    if (acct == null)
+		    _selectedAccount = GetSelectedAccount();
+		    if (_selectedAccount == null)
 		    {
-		        Print("AE BLOCKED | no account");
-		        return false;
+				try
+				{
+					_selectedAccount = GetSelectedAccount();
+				}
+				catch
+				{
+				        Print("AE BLOCKED | no account");
+				        return false;
+				}
 		    }
 		
-		    bool hasWorking = HasWorkingOrder(acct);
-		    bool hasPosition = WaitUntilFlat && HasOpenPosition(acct);
+		    bool hasWorking = HasWorkingOrder(_selectedAccount);
+		    bool hasPosition = WaitUntilFlat && HasOpenPosition(_selectedAccount);
 		
 		    Print("AE CanSubmit check | dir=" + direction
 		        + " | hasWorking=" + hasWorking
 		        + " | hasPosition=" + hasPosition
-		        + " | acct=" + acct.Name);
+		        + " | acct=" + _selectedAccount.Name);
 		
 		    if (hasWorking)
 		    {
@@ -627,6 +691,47 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    }
 		}
 		
+		private bool IsLongOpen()
+		{
+		    if (_selectedAccount == null) return false;
+		    foreach (NinjaTrader.Cbi.Position pos in _selectedAccount.Positions)
+		    {
+		        if (pos.Instrument.FullName == Instrument.FullName)
+		            return pos.MarketPosition == NinjaTrader.Cbi.MarketPosition.Long;
+		    }
+		    return false;
+		}
+		
+		private bool IsShortOpen()
+		{
+		    if (_selectedAccount == null) return false;
+		    foreach (NinjaTrader.Cbi.Position pos in _selectedAccount.Positions)
+		    {
+		        if (pos.Instrument.FullName == Instrument.FullName)
+		            return pos.MarketPosition == NinjaTrader.Cbi.MarketPosition.Short;
+		    }
+		    return false;
+		}
+		
+		private bool IsAccountFlat()
+		{
+		    if (_selectedAccount == null)
+		    {
+		        Print("AE IsAccountFlat — _selectedAccount is NULL");
+		        return true;
+		    }
+		    foreach (NinjaTrader.Cbi.Position pos in _selectedAccount.Positions)
+		    {
+		        if (pos.Instrument.FullName == Instrument.FullName)
+		        {
+		            Print("AE IsAccountFlat — found pos mp=" + pos.MarketPosition + " qty=" + pos.Quantity);
+		            return pos.MarketPosition == NinjaTrader.Cbi.MarketPosition.Flat;
+		        }
+		    }
+		    Print("AE IsAccountFlat — no position found, returning true");
+		    return true;
+		}
+		
 		private bool IsDailyLimitHit()
 		{
 		    if (!EnableMoneyMgmt) return false;
@@ -643,6 +748,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    }
 		    return false;
 		}
+		
+		private bool IsPositionOpen()
+		{
+		    if (_selectedAccount == null) return false;
+		    foreach (var pos in _selectedAccount.Positions)
+		        if (pos.Instrument.FullName == Instrument.FullName &&
+		            pos.MarketPosition != MarketPosition.Flat)
+		            return true;
+		    return false;
+		}
+
+
 		
 		private void DrawDailyLimitMessage()
 		{
@@ -1002,80 +1119,99 @@ namespace NinjaTrader.NinjaScript.Indicators
 
        private void EvaluateSets()
 		{
+		    Print($"AE EvalSets bar={CurrentBar} sets={_sets.Count} longOn={_longOn} shortOn={_shortOn}");
+		
 		    int setIdx = 0;
 		    foreach (var set in _sets)
 		    {
+		        Print($"AE Set[{setIdx}] name={set.Name} enabled={set.IsEnabled} action={set.EntryAction}");
+		
 		        if (!set.IsEnabled) { setIdx++; continue; }
 		
-		        // ── Hit Bar conditions ──────────────────────────────────────
-		        // Exit Long / Exit Short sets skip hit bar evaluation entirely
 		        bool isExitAction = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
 		
+		        // ── Hit Bar ───────────────────────────────────────────────
 		        bool hitOk = isExitAction
-		            || set.HitBarConditions.Count == 0
-		            || set.HitBarConditions.All(c => EvalCondition(c));
+		                  || set.HitBarConditions.Count == 0
+		                  || set.HitBarConditions.All(c => EvalCondition(c));
 		
-		        if (CurrentBar < 3)
-		            Print($"AE EvalSets bar={CurrentBar} set={set.Name} hitConds={set.HitBarConditions.Count} hitOk={hitOk}");
+		        Print($"AE Set[{setIdx}] hitConds={set.HitBarConditions.Count} hitOk={hitOk}");
 		
-		        // Draw hit bar highlight (skip for exit actions)
-		        if (hitOk && CurrentBar > 0 && !isExitAction)
+		        if (hitOk && CurrentBar > 0 && !isExitAction && HitBarHighlight)
 		        {
 		            var hitColor  = (HitBarHighlightColor as SolidColorBrush)?.Color ?? Colors.Violet;
 		            byte alpha    = (byte)(HitBarHighlightOpacity * 255 / 100);
 		            var  colBrush = new SolidColorBrush(Color.FromArgb(alpha, hitColor.R, hitColor.G, hitColor.B));
-		            string hitTag = "HitCol" + setIdx + "_" + CurrentBar;
-		            double colHigh = 1e10;
-		            double colLow  = -1e10;
-		            Draw.Rectangle(this, hitTag, false, 1, colHigh, 0, colLow,
-		                Brushes.Transparent, colBrush, (int)HitBarHighlightOpacity);
+		            Draw.Rectangle(this, "HitCol" + setIdx + "_" + CurrentBar, false,
+		                1, 1e10, 0, -1e10, Brushes.Transparent, colBrush, (int)HitBarHighlightOpacity);
 		        }
 		
 		        if (!hitOk) { setIdx++; continue; }
 		
-		        // ── Signal Bar conditions ───────────────────────────────────
+		        // ── Signal Bar ────────────────────────────────────────────
 		        bool sigOk = set.SignalBarConditions.Count == 0
 		                  || set.SignalBarConditions.All(c => EvalCondition(c));
 		
+		        Print($"AE Set[{setIdx}] sigConds={set.SignalBarConditions.Count} sigOk={sigOk}");
+		
 		        if (!sigOk) { setIdx++; continue; }
 		
-		        // ── Actions ─────────────────────────────────────────────────
+		        // ── Actions ───────────────────────────────────────────────
+		        Print($"AE Set[{setIdx}] SIGNAL FIRED action={set.EntryAction} longOn={_longOn} shortOn={_shortOn}");
 		
-		        // Buy / Long — requires longOn
-		        if (_longOn && (set.EntryAction == "Buy" || set.EntryAction == "Long"))
+		        if (set.EntryAction == "Buy" || set.EntryAction == "Long")
 		        {
-		            LastLongSignalBar = CurrentBar;
-		            if (AlertMarkerEnabled)
-		                Draw.ArrowUp(this, "LongSig" + CurrentBar, false, 0,
-		                    Low[0] - 2 * TickSize, MarkerColorBullish);
-		            Print("AlgoEngine LONG " + set.Name + " " + Time[0]);
+		            if (_longOn)
+		            {
+		                LastLongSignalBar = CurrentBar;
+		                if (AlertMarkerEnabled)
+		                    Draw.ArrowUp(this, "LongSig" + CurrentBar, false, 0,
+		                        Low[0] - 2 * TickSize, MarkerColorBullish);
+		                Print("AlgoEngine LONG " + set.Name + " " + Time[0]);
+						
+						if (!string.IsNullOrEmpty(set.AtmStrategy) && set.AtmStrategy != "None")
+            				PlaceAtmEntry(set, true);
+		            }
+		            else Print($"AE Set[{setIdx}] BLOCKED — _longOn is false");
 		        }
-		        // Sell / Short — requires shortOn
-		        else if (_shortOn && (set.EntryAction == "Sell" || set.EntryAction == "Short"))
+		        else if (set.EntryAction == "Sell" || set.EntryAction == "Short")
 		        {
-		            LastShortSignalBar = CurrentBar;
-		            if (AlertMarkerEnabled)
-		                Draw.ArrowDown(this, "ShortSig" + CurrentBar, false, 0,
-		                    High[0] + 2 * TickSize, MarkerColorBearish);
-		            Print("AlgoEngine SHORT " + set.Name + " " + Time[0]);
+		            if (_shortOn)
+		            {
+		                LastShortSignalBar = CurrentBar;
+		                if (AlertMarkerEnabled)
+							Print("very close");
+		                    Draw.ArrowDown(this, "ShortSig" + CurrentBar, false, 0,
+		                        High[0] + 2 * TickSize, MarkerColorBearish);
+		                Print("AlgoEngine SHORT " + set.Name + " " + Time[0]);
+						if (!string.IsNullOrEmpty(set.AtmStrategy) && set.AtmStrategy != "None")
+            				PlaceAtmEntry(set, false);
+		            }
+		            else Print($"AE Set[{setIdx}] BLOCKED — _shortOn is false");
 		        }
-		        // Exit Long — flatten long position, no longOn/shortOn required
 		        else if (set.EntryAction == "Exit Long")
 		        {
-		            FlattenPosition(true);
-		            if (AlertMarkerEnabled)
-		                Draw.ArrowDown(this, "ExitLongSig" + CurrentBar, false, 0,
-		                    High[0] + 2 * TickSize, Brushes.Yellow);
-		            Print("AlgoEngine EXIT LONG " + set.Name + " " + Time[0]);
+		            bool lo = IsLongOpen();
+		            Print($"AE Set[{setIdx}] EXIT LONG check — IsLongOpen={lo}");
+		            if (lo) 
+					{
+						Print("AlgoEngine EXIT LONG " + set.Name + " " + Time[0]);
+						 PlaceAtmExit(true);
+					}
 		        }
-		        // Exit Short — flatten short position, no longOn/shortOn required
 		        else if (set.EntryAction == "Exit Short")
 		        {
-		            FlattenPosition(false);
-		            if (AlertMarkerEnabled)
-		                Draw.ArrowUp(this, "ExitShortSig" + CurrentBar, false, 0,
-		                    Low[0] - 2 * TickSize, Brushes.Yellow);
-		            Print("AlgoEngine EXIT SHORT " + set.Name + " " + Time[0]);
+		            bool so = IsShortOpen();
+		            Print($"AE Set[{setIdx}] EXIT SHORT check — IsShortOpen={so}");
+		            if (so) 
+					{
+						Print("AlgoEngine EXIT SHORT " + set.Name + " " + Time[0]);
+						 PlaceAtmExit(false);
+					}
+		        }
+		        else
+		        {
+		            Print($"AE Set[{setIdx}] action='{set.EntryAction}' did not match any case");
 		        }
 		
 		        setIdx++;
@@ -1154,130 +1290,371 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return 1;
 		}
 		
+//		private void PlaceAtmEntry(ConditionSet set, bool isLong)
+//		{
+//		    try
+//		    {
+//		        if (set == null)
+//		            return;
+		
+//		        if (string.IsNullOrWhiteSpace(set.AtmStrategy) || set.AtmStrategy == "None")
+//		        {
+//		            Print("AE ATM skipped: no ATM strategy selected for set " + set.Name);
+//		            return;
+//		        }
+		
+//		        Account account = GetSelectedAccount();
+//		        if (account == null)
+//		        {
+//		            Print("AE ATM skipped: account not found: " + _selectedAccountName);
+//		            return;
+//		        }
+		
+//				Print("not null here");
+//		        int qty = set.Quantity > 0 ? set.Quantity : 1;
+		
+//		        OrderAction action    = isLong ? OrderAction.Buy : OrderAction.SellShort;
+//		        OrderType   orderType = OrderType.Market;
+//		        double      limitPrice = 0;
+//		        double      stopPrice  = 0;
+		
+//		        if (_selectedOrderType == "LMT")
+//		        {
+//		            double px = isLong ? GetCurrentAsk() : GetCurrentBid();
+//		            if (px <= 0 || double.IsNaN(px) || double.IsInfinity(px))
+//		                px = Close[0];
+		
+//		            orderType  = OrderType.Limit;
+//		            limitPrice = px;
+//		        }
+//		        else if (_selectedOrderType == "STP")
+//		        {
+//		            double px = isLong ? GetCurrentAsk() : GetCurrentBid();
+//		            if (px <= 0 || double.IsNaN(px) || double.IsInfinity(px))
+//		                px = Close[0];
+		
+//		            orderType = OrderType.StopMarket;
+//		            stopPrice = px;
+//		        }
+		
+//		        string orderId = Guid.NewGuid().ToString("N").Substring(0, 16);
+//		        string atmId   = Guid.NewGuid().ToString("N").Substring(0, 16);
+		
+//		        // ── only addition ──────────────────────────────────────
+//		        _activeEntryTag = "AE_" + (isLong ? "L" : "S") + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+//		        _activeAccount  = account;
+//		        _activeQty      = qty;
+//		        // ──────────────────────────────────────────────────────
+		
+//		        if (account != null)
+//		        {
+//		            if (isLong)
+//		            {
+//		                Order order = account.CreateOrder(
+//		                    Instrument,
+//		                    OrderAction.Buy,
+//		                    OrderType.Market,
+//		                    OrderEntry.Manual,
+//		                    TimeInForce.Day,
+//		                    set.Quantity,
+//		                    0, 0, "",
+//		                    _activeEntryTag,                    // ← was "Entry", now tracked tag
+//		                    NinjaTrader.Core.Globals.MaxDate, null);
+//		                AtmStrategy.StartAtmStrategy(set.AtmStrategy, order);
+//		                Print("AlgoEngine LONG ATM | " + set.AtmStrategy + " | " + set.Name + " | " + Time[0]);
+//		            }
+//		            else
+//		            {
+//		                Order order = account.CreateOrder(
+//		                    Instrument,
+//		                    OrderAction.SellShort,
+//		                    OrderType.Market,
+//		                    OrderEntry.Manual,
+//		                    TimeInForce.Day,
+//		                    set.Quantity,
+//		                    0, 0, "",
+//		                    _activeEntryTag,                    // ← was "Entry", now tracked tag
+//		                    NinjaTrader.Core.Globals.MaxDate, null);
+//		                AtmStrategy.StartAtmStrategy(set.AtmStrategy, order);
+//		                Print("AlgoEngine SHORT ATM | " + set.AtmStrategy + " | " + set.Name + " | " + Time[0]);
+//		            }
+//		        }
+		
+//		        MarkOrderSubmitted(isLong ? "LONG" : "SHORT");
+		
+//		        Print("AE ATM " + (isLong ? "LONG" : "SHORT")
+//		            + " submitted | set=" + set.Name
+//		            + " | acct=" + account.Name
+//		            + " | qty=" + qty
+//		            + " | atm=" + set.AtmStrategy
+//		            + " | tag=" + _activeEntryTag
+//		            + " | bar=" + CurrentBar);
+//		    }
+//		    catch (Exception ex)
+//		    {
+//		        Print("AE PlaceAtmEntry error: " + ex.Message);
+//		    }
+//		}
+		
+		
 		private void PlaceAtmEntry(ConditionSet set, bool isLong)
-{
-    try
-    {
-        if (set == null)
-            return;
+		{
+			
+			
+		 	if (State != State.Realtime) return;
+			
+			   Print("AE PlaceAtmEntry CALLED — isLong=" + isLong
+        + " _activeQty=" + _activeQty
+        
+        + " accountFlat=" + IsAccountFlat());
 
-        if (string.IsNullOrWhiteSpace(set.AtmStrategy) || set.AtmStrategy == "None")
-        {
-            Print("AE ATM skipped: no ATM strategy selected for set " + set.Name);
-            return;
-        }
-
-        Account account = GetSelectedAccount();
-        if (account == null)
-        {
-            Print("AE ATM skipped: account not found: " + _selectedAccountName);
-            return;
-        }
-
-        int qty = set.Quantity > 0 ? set.Quantity : 1;
-
-        OrderAction action    = isLong ? OrderAction.Buy : OrderAction.SellShort;
-        OrderType   orderType = OrderType.Market;
-        double      limitPrice = 0;
-        double      stopPrice  = 0;
-
-        if (_selectedOrderType == "LMT")
-        {
-            double px = isLong ? GetCurrentAsk() : GetCurrentBid();
-            if (px <= 0 || double.IsNaN(px) || double.IsInfinity(px))
-                px = Close[0];
-
-            orderType  = OrderType.Limit;
-            limitPrice = px;
-        }
-        else if (_selectedOrderType == "STP")
-        {
-            double px = isLong ? GetCurrentAsk() : GetCurrentBid();
-            if (px <= 0 || double.IsNaN(px) || double.IsInfinity(px))
-                px = Close[0];
-
-            orderType = OrderType.StopMarket;
-            stopPrice = px;
-        }
+		    // Check BOTH our tracking flag AND actual account position
+		    bool accountIsFlat = true;
+		    if (_selectedAccount != null)
+		    {
+		        foreach (NinjaTrader.Cbi.Position pos in _selectedAccount.Positions)
+		        {
+		            if (pos.Instrument.FullName == Instrument.FullName &&
+		                pos.MarketPosition != NinjaTrader.Cbi.MarketPosition.Flat)
+		            {
+		                accountIsFlat = false;
+		                break;
+		            }
+		        }
+		    }
 		
+		    // In PlaceAtmEntry:
+			if (IsPositionOpen() || _exitPending)
+			{
+			    Print("AE BLOCKED — position already open");
+			    return;
+			}
+		    try
+		    {
+		        if (set == null)
+		            return;
 		
+		        if (string.IsNullOrWhiteSpace(set.AtmStrategy) || set.AtmStrategy == "None")
+		        {
+		            Print("AE ATM skipped: no ATM strategy selected for set " + set.Name);
+		            return;
+		        }
 		
-		                            string orderId = Guid.NewGuid().ToString("N").Substring(0, 16);
-                            string atmId   = Guid.NewGuid().ToString("N").Substring(0, 16);
+		        _selectedAccount = GetSelectedAccount();
+		        if (_selectedAccount == null)
+		        {
+		            Print("AE ATM skipped: account not found: " );
+		            return;
+		        }
+				
+
 		
-	
-                            if (account != null)
-                            {
-								if (isLong)
-								{
-                                Order order = account.CreateOrder(
-                                    Instrument,
-                                    OrderAction.Buy,
-                                    OrderType.Market,
-                                    OrderEntry.Manual,
-                                    TimeInForce.Day,
-                                    set.Quantity,
-                                    0, 0, "", "Entry",
-                                    NinjaTrader.Core.Globals.MaxDate, null);
-                                AtmStrategy.StartAtmStrategy(set.AtmStrategy, order);
-                                Print("AlgoEngine LONG ATM | " + set.AtmStrategy + " | " + set.Name + " | " + Time[0]);
-								}
-								else
-								{
-									 Order order = account.CreateOrder(
-                                    Instrument,
-                                    OrderAction.Sell,
-                                    OrderType.Market,
-                                    OrderEntry.Manual,
-                                    TimeInForce.Day,
-                                    set.Quantity,
-                                    0, 0, "", "Entry",
-                                    NinjaTrader.Core.Globals.MaxDate, null);
-	                                AtmStrategy.StartAtmStrategy(set.AtmStrategy, order);
-	                                Print("AlgoEngine LONG ATM | " + set.AtmStrategy + " | " + set.Name + " | " + Time[0]);
-								}
+		        int qty = set.Quantity > 0 ? set.Quantity : 1;
+				
+				if (IsPositionOpen() || !accountIsFlat || _exitPending)
+				{
+				    Print("AE PlaceAtmEntry BLOCKED — qty=" + _activeQty
+				        + " flat=" + accountIsFlat
+				        + " exitPending=" + _exitPending);
+				    return;
+				}
+		
+		        OrderAction action    = isLong ? OrderAction.Buy : OrderAction.SellShort;
+		        OrderType   orderType = OrderType.Market;
+		        double      limitPrice = 0;
+		        double      stopPrice  = 0;
+		
+		        if (_selectedOrderType == "LMT")
+		        {
+		            double px = isLong ? GetCurrentAsk() : GetCurrentBid();
+		            if (px <= 0 || double.IsNaN(px) || double.IsInfinity(px))
+		                px = Close[0];
+		
+		            orderType  = OrderType.Limit;
+		            limitPrice = px;
+		        }
+		        else if (_selectedOrderType == "STP")
+		        {
+		            double px = isLong ? GetCurrentAsk() : GetCurrentBid();
+		            if (px <= 0 || double.IsNaN(px) || double.IsInfinity(px))
+		                px = Close[0];
+		
+		            orderType = OrderType.StopMarket;
+		            stopPrice = px;
+		        }
+				
+				
+				// _activeEntryTag =  (isLong ? "L" : "S")  + DateTime.Now.ToString("yyMMdd");
+				_activeEntryTag = "Long";
+				Print(_activeEntryTag);
+				
+				_activeQty      = qty;
+                    string orderId = Guid.NewGuid().ToString("N").Substring(0, 16);
+                    string atmId   = Guid.NewGuid().ToString("N").Substring(0, 16);
+				
+						
+							    // unsub first to avoid double
+							
+							
+													
+						
+
+
+                    if (_selectedAccount != null)
+                    {
+						 _selectedAccount.OrderUpdate -= OnAEOrderUpdate; 
+						if (isLong)
+						{
+                        Order order = _selectedAccount.CreateOrder(
+                            Instrument,
+                            OrderAction.Buy,
+                            OrderType.Market,
+                            OrderEntry.Manual,
+                            TimeInForce.Day,
+                            set.Quantity,
+                            0, 0, "", "Entry",
+                            NinjaTrader.Core.Globals.MaxDate, null);
+                        AtmStrategy.StartAtmStrategy(set.AtmStrategy, order);
+                        Print("AlgoEngine LONG ATM | " + set.AtmStrategy + " | " + set.Name + " | " + Time[0]);
 						}
-		
-		
-		
-		
-//        Order entryOrder = account.CreateOrder(
-//            Instrument,
-//            action,
-//            orderType,
-//            OrderEntry.Manual,
-//            TimeInForce.Day,
-//            qty,
-//            limitPrice,
-//            stopPrice,
-//            "",
-//            "AE_" + set.Name + "_" + (isLong ? "Long" : "Short"),
-//            Core.Globals.MaxDate,
-//            null);
-		
-		
-//		Print ("atm:" + set.AtmStrategy);
-//        // Attach ATM by name — no object lookup needed
-//        NinjaTrader.NinjaScript.AtmStrategy.StartAtmStrategy("BanksyNQ5b", entryOrder);
+						else
+						{
+							 Order order = _selectedAccount.CreateOrder(
+                            Instrument,
+                            OrderAction.SellShort,
+                            OrderType.Market,
+                            OrderEntry.Manual,
+                            TimeInForce.Day,
+                            set.Quantity,
+                            0, 0, "", "Entry",
+                            NinjaTrader.Core.Globals.MaxDate, null);
+                            AtmStrategy.StartAtmStrategy(set.AtmStrategy, order);
+                            Print("AlgoEngine SHORT ATM | " + set.AtmStrategy + " | " + set.Name + " | " + Time[0]);
+						}
+						
+				}
 
-        //account.Submit(new[] { entryOrder });
+		        // Stamp the bar so guards stay in sync
+		        MarkOrderSubmitted(isLong ? "LONG" : "SHORT");
+		
+		        Print("AE ATM " + (isLong ? "LONG" : "SHORT")
+		            + " submitted | set=" + set.Name
+		            + " | acct=" + _selectedAccount.Name
+		            + " | qty=" + qty
+		            + " | type=" + orderType
+		            + " | atm=" + set.AtmStrategy
+		            + " | bar=" + CurrentBar);
+		    }
+		    catch (Exception ex)
+		    {
+		        Print("AE PlaceAtmEntry error: " + ex.Message);
+		    }
+		}
+		
+		private void OnAEOrderUpdate(object sender, NinjaTrader.Cbi.OrderEventArgs e)
+		{
+		    if (e.Order.Instrument.FullName != Instrument.FullName) return;
+		
+		    // Clear pending only when exit fill confirmed
+		    if (_exitPending &&
+		        (e.Order.OrderAction == NinjaTrader.Cbi.OrderAction.Sell ||
+		         e.Order.OrderAction == NinjaTrader.Cbi.OrderAction.BuyToCover) &&
+		        e.Order.OrderState == NinjaTrader.Cbi.OrderState.Filled)
+		    {
+		        Print("AE OnAEOrderUpdate — exit fill confirmed, clearing pending");
+		        _exitPending      = false;
+		        _selectedAccount.OrderUpdate -= OnAEOrderUpdate;
+		        _selectedAccount    = null;  // NOW safe to null out
+		    }
+		}
 
-        // Stamp the bar so guards stay in sync
-        MarkOrderSubmitted(isLong ? "LONG" : "SHORT");
 
-        Print("AE ATM " + (isLong ? "LONG" : "SHORT")
-            + " submitted | set=" + set.Name
-            + " | acct=" + account.Name
-            + " | qty=" + qty
-            + " | type=" + orderType
-            + " | atm=" + set.AtmStrategy
-            + " | bar=" + CurrentBar);
-    }
-    catch (Exception ex)
-    {
-        Print("AE PlaceAtmEntry error: " + ex.Message);
-    }
-}
+
+
+
+		private bool _exitPending = false;
+
+		private void ResetTradeTracking()
+		{
+		    // DON'T unsubscribe or null _activeAccount here — keep it alive until exit fills
+		    // _activeAccount.OrderUpdate -= OnAEOrderUpdate;  ← REMOVE THIS from here
+		    // _activeAccount = null;                          ← REMOVE THIS from here
+		
+		    _activeQty        = 0;
+		    _activeEntryOrder = null;
+		    _entrySubmitTime  = DateTime.MinValue;
+		    _exitPending      = true;  // block new entries until OnAEOrderUpdate clears this
+		}
+		
+		private void PlaceAtmExit(bool isLong)
+		{
+		    if (!IsPositionOpen()) return;
+		
+		    _exitPending = true;
+		
+		    OrderAction exitAction = isLong ? OrderAction.Sell : OrderAction.Buy;
+		    Order exit = _selectedAccount.CreateOrder(
+		        Instrument, exitAction, OrderType.Market,
+		        OrderEntry.Manual, TimeInForce.Day, _activeQty,
+		        0, 0, "", "Exit", Core.Globals.MaxDate, null);
+		
+		    _selectedAccount.Submit(new[] { exit });
+			Print("Exited");
+		}
+
+		private void CancelOrphanAtmOrders()
+		{
+		    if (_selectedAccount == null) return;
+		    
+		    var toCancel = new List<Order>();
+		    
+		    foreach (Order o in _selectedAccount.Orders)
+		    {
+		        if (o.Instrument.FullName != Instrument.FullName) continue;
+		        if (o.OrderState == OrderState.Cancelled ||
+		            o.OrderState == OrderState.Filled ||
+		            o.OrderState == OrderState.Rejected) continue;
+		            
+		        // These are the ATM child orders left behind
+		        if (o.OrderType == OrderType.StopMarket || 
+		            o.OrderType == OrderType.StopLimit  ||
+		            o.OrderType == OrderType.Limit)
+		        {
+		            toCancel.Add(o);
+		            Print("AE CancelOrphan: " + o.Name + " | " + o.OrderType + " @ " + o.StopPrice + "/" + o.LimitPrice);
+		        }
+		    }
+		    
+		    if (toCancel.Count > 0)
+		    {
+		        _selectedAccount.Cancel(toCancel.ToArray());
+		        Print("AE CancelOrphan: cancelled " + toCancel.Count + " orphan orders");
+		    }
+		}
+		
+		// In ExecutionUpdate handler:
+		private void OnAccountExecutionUpdate(object sender, ExecutionEventArgs e)
+		{
+			Print("is exit"+e.Execution.Order.Name);
+		    if (e.Execution.Order.Name == "Exit" &&
+		        e.Execution.Order.OrderState == OrderState.Filled)
+		    {
+		        // Position is now flat — kill any remaining ATM child orders
+			    bool isExitFill = (e.Execution.Order.Name == "Exit" ||
+                   e.Execution.Order.Name == "Stop Loss" ||
+                   e.Execution.Order.Name == "Profit Target");
+				  if (isExitFill)
+				    {
+				        CancelOrphanAtmOrders();
+				        _exitPending = false;
+				        _activeQty   = 0;
+				        Print("AE: Exit confirmed — orphans cancelled, ready for next entry");
+				    }
+					
+		    }
+		}
+		
+
 
         private bool EvalCondition(ConditionItem c)
         {
@@ -2116,6 +2493,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private UIElement BuildSetPanel(int idx)
 		{
 		    var set   = _sets[idx];
+			bool isExitAction = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
 		    var panel = new StackPanel { Background = new SolidColorBrush(Color.FromArgb(255, 28, 28, 28)) };
 		
 		    // ── Enabled row ──────────────────────────────────────────────
@@ -2160,7 +2538,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    panel.Children.Add(MakeSep());
 		
 		    // ── Determine if this is an exit action ──────────────────────
-		    bool isExitAction = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
+		    //bool isExitAction = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
 		
 		    // ── Hit Bar section — hidden for exit actions ─────────────────
 		    var hitSection = new StackPanel();
@@ -2194,6 +2572,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    var eeRow = new Grid { Margin = new Thickness(6, 4, 6, 6) };
 		    eeRow.ColumnDefinitions.Add(new ColumnDefinition());
 		    eeRow.ColumnDefinitions.Add(new ColumnDefinition());
+			
+			var exitPanel = new StackPanel();
+			exitPanel.Children.Add(new TextBlock
+			{
+			    Text       = "Exit",
+			    Foreground = Brushes.White,
+			    FontWeight = FontWeights.SemiBold,
+			    FontSize   = 11
+			});
 		
 		    // Action combo
 		    var entryPanel = new StackPanel { Margin = new Thickness(0, 0, 8, 0) };
@@ -2211,32 +2598,36 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        FontSize   = 10
 		    });
 		
-		    var actionCb = MakeDarkCombo(new[] { "None", "Buy", "Sell", "Exit Long", "Exit Short" }, 140);
-		    int ai = new[] { "None", "Buy", "Sell", "Exit Long", "Exit Short" }.ToList().IndexOf(set.EntryAction);
-		    actionCb.SelectedIndex = ai >= 0 ? ai : 0;
-		
-		    // Rebuild panel when action type changes so hit bar / ATM sections update
-		    actionCb.SelectionChanged += (s, e) =>
-		    {
-		        if (actionCb.SelectedItem == null) return;
-		        set.EntryAction = actionCb.SelectedItem.ToString();
-		        int sel = _setTabs != null ? _setTabs.SelectedIndex : idx;
-		        RebuildSetTabs();
-		        if (_setTabs != null) _setTabs.SelectedIndex = sel;
-		    };
-		    entryPanel.Children.Add(actionCb);
-		    Grid.SetColumn(entryPanel, 0);
-		
-		    // ATM Strategy combo — hidden for exit actions
-		    var exitPanel = new StackPanel();
-		    exitPanel.Children.Add(new TextBlock
-		    {
-		        Text       = "Exit",
-		        Foreground = Brushes.White,
-		        FontWeight = FontWeights.SemiBold,
-		        FontSize   = 11
-		    });
-		
+		   var actionCb = MakeDarkCombo(new[] { "None", "Buy", "Sell", "Exit Long", "Exit Short" }, 140);
+			int ai = new[] { "None", "Buy", "Sell", "Exit Long", "Exit Short" }.ToList().IndexOf(set.EntryAction);
+			
+			bool actionCbLoading = true;
+			actionCb.SelectedIndex = ai >= 0 ? ai : 0;
+			actionCbLoading = false;
+			
+			actionCb.SelectionChanged += (s, e) =>
+			{
+			    if (actionCbLoading) return;
+			    if (actionCb.SelectedItem == null) return;
+			    set.EntryAction = actionCb.SelectedItem.ToString();
+			
+			    // Only rebuild if switching between exit vs entry mode (UI layout changes)
+			    bool wasExit = e.RemovedItems.Count > 0 &&
+			                   (e.RemovedItems[0].ToString() == "Exit Long" ||
+			                    e.RemovedItems[0].ToString() == "Exit Short");
+			    bool isExit  = set.EntryAction == "Exit Long" || set.EntryAction == "Exit Short";
+			
+			    if (wasExit != isExit)
+			    {
+			        int sel = _setTabs != null ? _setTabs.SelectedIndex : idx;
+			        RebuildSetTabs();
+			        if (_setTabs != null) _setTabs.SelectedIndex = sel;
+			    }
+			};
+			
+			entryPanel.Children.Add(actionCb);
+            Grid.SetColumn(entryPanel, 0);
+					
 		    if (isExitAction)
 		    {
 		        exitPanel.Children.Add(new TextBlock
